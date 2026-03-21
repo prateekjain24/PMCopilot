@@ -37,11 +37,11 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-001 | Create plugin manifest | infra | -- | todo |
-| PMC-002 | Create MCP server config | config | -- | todo |
-| PMC-003 | Create settings.json defaults | config | -- | todo |
-| PMC-004 | Create hooks.json skeleton | config | -- | todo |
-| PMC-005 | Create directory scaffold | infra | -- | todo |
+| PMC-001 | Create plugin manifest | infra | -- | done |
+| PMC-002 | Create MCP server config | config | -- | done |
+| PMC-003 | Create settings.json defaults | config | -- | done |
+| PMC-004 | Create hooks.json skeleton | config | -- | done |
+| PMC-005 | Create directory scaffold | infra | -- | done |
 | PMC-006 | Write PRD skill | skill | -- | todo |
 | PMC-007 | Write prd-writer agent | agent | -- | todo |
 

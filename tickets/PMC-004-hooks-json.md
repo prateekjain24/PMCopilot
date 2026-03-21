@@ -2,7 +2,7 @@
 id: PMC-004
 title: Create hooks/hooks.json with event placeholders
 phase: 0 - Foundation
-status: todo
+status: done
 type: setup
 estimate: 1
 dependencies:

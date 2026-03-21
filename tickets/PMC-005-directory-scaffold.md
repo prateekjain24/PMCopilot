@@ -2,7 +2,7 @@
 id: PMC-005
 title: Create full directory structure scaffold
 phase: 0 - Foundation
-status: todo
+status: done
 type: setup
 estimate: 1
 dependencies:

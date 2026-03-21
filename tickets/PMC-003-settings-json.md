@@ -2,7 +2,7 @@
 id: PMC-003
 title: Create settings.json with default configuration values
 phase: 0 - Foundation
-status: todo
+status: done
 type: setup
 estimate: 1
 dependencies:

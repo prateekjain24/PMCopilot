@@ -2,7 +2,7 @@
 id: PMC-002
 title: Create .mcp.json with 4 custom MCP server registrations
 phase: 0 - Foundation
-status: todo
+status: done
 type: setup
 estimate: 1
 dependencies:

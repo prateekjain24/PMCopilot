@@ -1,0 +1,12 @@
+{
+  "default_prd_template": "google",
+  "default_roadmap_format": "now-next-later",
+  "default_prioritization": "rice",
+  "competitive_intel_cache_days": 7,
+  "auto_screenshot_resolution": "1280x720",
+  "default_market": "us",
+  "jira_project_key": "",
+  "figma_team_id": "",
+  "analytics_platform": "amplitude",
+  "preferred_frameworks": ["rice", "moscow", "kano"]
+}

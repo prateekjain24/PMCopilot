@@ -2,7 +2,7 @@
 id: PMC-001
 title: Create plugin manifest (plugin.json)
 phase: 0 - Foundation
-status: todo
+status: done
 type: setup
 estimate: 1
 dependencies: []
