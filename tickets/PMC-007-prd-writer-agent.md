@@ -2,7 +2,7 @@
 id: PMC-007
 title: Write PRD writer agent definition (prd-writer.md)
 phase: 0 - Foundation
-status: todo
+status: done
 type: agent
 estimate: 1
 dependencies:

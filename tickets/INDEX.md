@@ -42,8 +42,8 @@
 | PMC-003 | Create settings.json defaults | config | -- | done |
 | PMC-004 | Create hooks.json skeleton | config | -- | done |
 | PMC-005 | Create directory scaffold | infra | -- | done |
-| PMC-006 | Write PRD skill | skill | -- | todo |
-| PMC-007 | Write prd-writer agent | agent | -- | todo |
+| PMC-006 | Write PRD skill | skill | -- | done |
+| PMC-007 | Write prd-writer agent | agent | -- | done |
 
 ---
 
@@ -51,9 +51,9 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-008 | Create Google PRD template | template | PMC-006 | todo |
-| PMC-009 | Create Amazon PRFAQ template | template | PMC-006 | todo |
-| PMC-010 | Create Stripe PRD template | template | PMC-006 | todo |
+| PMC-008 | Create Google PRD template | template | PMC-006 | done |
+| PMC-009 | Create Amazon PRFAQ template | template | PMC-006 | done |
+| PMC-010 | Create Stripe PRD template | template | PMC-006 | done |
 | PMC-011 | Write prioritize skill | skill | -- | todo |
 | PMC-012 | Create RICE framework reference | reference | PMC-011 | todo |
 | PMC-013 | Create ICE framework reference | reference | PMC-011 | todo |

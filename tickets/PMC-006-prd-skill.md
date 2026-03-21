@@ -2,7 +2,7 @@
 id: PMC-006
 title: Write PRD generator skill definition (SKILL.md)
 phase: 0 - Foundation
-status: todo
+status: done
 type: skill
 estimate: 1
 dependencies:
