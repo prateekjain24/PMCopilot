@@ -59,16 +59,16 @@
 | PMC-013 | Create ICE framework reference | reference | PMC-011 | done |
 | PMC-014 | Create Kano framework reference | reference | PMC-011 | done |
 | PMC-015 | Create MoSCoW framework reference | reference | PMC-011 | done |
-| PMC-016 | Write roadmap skill | skill | -- | todo |
-| PMC-017 | Create Now/Next/Later template | template | PMC-016 | todo |
-| PMC-018 | Create outcome-based roadmap template | template | PMC-016 | todo |
-| PMC-019 | Write experiment-design skill | skill | -- | todo |
-| PMC-020 | Create A/B test plan template | template | PMC-019 | todo |
-| PMC-021 | Write user-research skill | skill | -- | todo |
-| PMC-022 | Create persona template | template | PMC-021 | todo |
-| PMC-023 | Create interview guide template | template | PMC-021 | todo |
-| PMC-024 | Create JTBD canvas template | template | PMC-021 | todo |
-| PMC-025 | Write stakeholder-update skill | skill | -- | todo |
+| PMC-016 | Write roadmap skill | skill | -- | done |
+| PMC-017 | Create Now/Next/Later template | template | PMC-016 | done |
+| PMC-018 | Create outcome-based roadmap template | template | PMC-016 | done |
+| PMC-019 | Write experiment-design skill | skill | -- | done |
+| PMC-020 | Create A/B test plan template | template | PMC-019 | done |
+| PMC-021 | Write user-research skill | skill | -- | done |
+| PMC-022 | Create persona template | template | PMC-021 | done |
+| PMC-023 | Create interview guide template | template | PMC-021 | done |
+| PMC-024 | Create JTBD canvas template | template | PMC-021 | done |
+| PMC-025 | Write stakeholder-update skill | skill | -- | done |
 | PMC-026 | Create weekly update template | template | PMC-025 | todo |
 | PMC-027 | Create executive summary template | template | PMC-025 | todo |
 | PMC-028 | Write launch-checklist skill | skill | -- | todo |

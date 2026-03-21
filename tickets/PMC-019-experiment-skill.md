@@ -2,7 +2,7 @@
 id: PMC-019
 title: Experiment Design Skill Definition
 phase: 1 - Core Skills
-status: todo
+status: done
 type: skill
 estimate: 1
 dependencies: [PMC-005]
