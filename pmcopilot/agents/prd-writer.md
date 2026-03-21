@@ -11,7 +11,7 @@ maxTurns: 20
 permissionMode: acceptEdits
 memory: project
 skills:
-  - prd
+  - prd-generator
 ---
 
 # PRD Writer

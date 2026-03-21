@@ -2,7 +2,7 @@
 id: PMC-015
 title: MoSCoW Framework Reference
 phase: 1 - Core Skills
-status: todo
+status: done
 type: template
 estimate: 1
 dependencies: [PMC-011]

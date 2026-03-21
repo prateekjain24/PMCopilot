@@ -54,11 +54,11 @@
 | PMC-008 | Create Google PRD template | template | PMC-006 | done |
 | PMC-009 | Create Amazon PRFAQ template | template | PMC-006 | done |
 | PMC-010 | Create Stripe PRD template | template | PMC-006 | done |
-| PMC-011 | Write prioritize skill | skill | -- | todo |
-| PMC-012 | Create RICE framework reference | reference | PMC-011 | todo |
-| PMC-013 | Create ICE framework reference | reference | PMC-011 | todo |
-| PMC-014 | Create Kano framework reference | reference | PMC-011 | todo |
-| PMC-015 | Create MoSCoW framework reference | reference | PMC-011 | todo |
+| PMC-011 | Write prioritize skill | skill | -- | done |
+| PMC-012 | Create RICE framework reference | reference | PMC-011 | done |
+| PMC-013 | Create ICE framework reference | reference | PMC-011 | done |
+| PMC-014 | Create Kano framework reference | reference | PMC-011 | done |
+| PMC-015 | Create MoSCoW framework reference | reference | PMC-011 | done |
 | PMC-016 | Write roadmap skill | skill | -- | todo |
 | PMC-017 | Create Now/Next/Later template | template | PMC-016 | todo |
 | PMC-018 | Create outcome-based roadmap template | template | PMC-016 | todo |
