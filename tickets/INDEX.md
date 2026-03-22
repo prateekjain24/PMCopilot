@@ -69,16 +69,16 @@
 | PMC-023 | Create interview guide template | template | PMC-021 | done |
 | PMC-024 | Create JTBD canvas template | template | PMC-021 | done |
 | PMC-025 | Write stakeholder-update skill | skill | -- | done |
-| PMC-026 | Create weekly update template | template | PMC-025 | todo |
-| PMC-027 | Create executive summary template | template | PMC-025 | todo |
-| PMC-028 | Write launch-checklist skill | skill | -- | todo |
-| PMC-029 | Create launch checklist template | template | PMC-028 | todo |
-| PMC-030 | Write market-sizing skill | skill | -- | todo |
-| PMC-031 | Create TAM/SAM/SOM template | template | PMC-030 | todo |
-| PMC-032 | Write sprint-review skill | skill | -- | todo |
-| PMC-033 | Write app-store-intel skill | skill | -- | todo |
-| PMC-034 | Write metrics-review skill | skill | -- | todo |
-| PMC-035 | Write competitive-teardown skill | skill | -- | todo |
+| PMC-026 | Create weekly update template | template | PMC-025 | done |
+| PMC-027 | Create executive summary template | template | PMC-025 | done |
+| PMC-028 | Write launch-checklist skill | skill | -- | done |
+| PMC-029 | Create launch checklist template | template | PMC-028 | done |
+| PMC-030 | Write market-sizing skill | skill | -- | done |
+| PMC-031 | Create TAM/SAM/SOM template | template | PMC-030 | done |
+| PMC-032 | Write sprint-review skill | skill | -- | done |
+| PMC-033 | Write app-store-intel skill | skill | -- | done |
+| PMC-034 | Write metrics-review skill | skill | -- | done |
+| PMC-035 | Write competitive-teardown skill | skill | -- | done |
 
 ---
 
@@ -86,11 +86,11 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-036 | Write sprint-analyst agent | agent | PMC-032 | todo |
-| PMC-037 | Write data-analyst agent | agent | PMC-034 | todo |
-| PMC-038 | Write research-synthesizer agent | agent | PMC-021 | todo |
-| PMC-039 | Wire Jira into sprint-review | integration | PMC-032 | todo |
-| PMC-040 | Wire Jira into prioritize | integration | PMC-011 | todo |
+| PMC-036 | Write sprint-analyst agent | agent | PMC-032 | done |
+| PMC-037 | Write data-analyst agent | agent | PMC-034 | done |
+| PMC-038 | Write research-synthesizer agent | agent | PMC-021 | done |
+| PMC-039 | Wire Jira into sprint-review | integration | PMC-032 | done |
+| PMC-040 | Wire Jira into prioritize | integration | PMC-011 | done |
 | PMC-041 | Wire Jira/Confluence into PRD | integration | PMC-006 | todo |
 | PMC-042 | Wire Slack into stakeholder-update | integration | PMC-025 | todo |
 | PMC-043 | Wire Slack into research-synthesizer | integration | PMC-038 | todo |

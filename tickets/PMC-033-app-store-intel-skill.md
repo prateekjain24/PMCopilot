@@ -2,7 +2,7 @@
 id: PMC-033
 title: App Store Intelligence Skill
 phase: 1 - Core Skills
-status: todo
+status: done
 type: skill
 estimate: 1
 dependencies: [PMC-005]

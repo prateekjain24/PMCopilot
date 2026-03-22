@@ -2,7 +2,7 @@
 id: PMC-038
 title: Create research-synthesizer agent
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: agent
 estimate: 1
 dependencies: [PMC-005]

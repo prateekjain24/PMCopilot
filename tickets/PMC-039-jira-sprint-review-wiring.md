@@ -2,7 +2,7 @@
 id: PMC-039
 title: Wire Jira into sprint-review skill and sprint-analyst agent
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-032, PMC-036]

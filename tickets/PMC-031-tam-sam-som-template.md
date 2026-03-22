@@ -2,7 +2,7 @@
 id: PMC-031
 title: TAM/SAM/SOM Template
 phase: 1 - Core Skills
-status: todo
+status: done
 type: template
 estimate: 1
 dependencies: [PMC-030]

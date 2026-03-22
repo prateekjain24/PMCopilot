@@ -6,7 +6,7 @@ description: >
   Jira/Linear backlog or accepts manual input.
 disable-model-invocation: false
 user-invocable: true
-allowed-tools: Read, Write, Bash, Grep, Glob, mcp__pm-frameworks__*
+allowed-tools: Read, Write, Bash, Grep, Glob, mcp__pm-frameworks__*, mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
 context: fork
 agent: general-purpose
 model: sonnet

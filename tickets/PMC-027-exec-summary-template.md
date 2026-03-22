@@ -2,7 +2,7 @@
 id: PMC-027
 title: Executive Summary Template
 phase: 1 - Core Skills
-status: todo
+status: done
 type: template
 estimate: 1
 dependencies: [PMC-025]
