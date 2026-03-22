@@ -2,7 +2,7 @@
 id: PMC-104
 title: Write simulator/emulator integration tests
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: test
 estimate: 1
 dependencies: [PMC-075, PMC-076, PMC-077, PMC-078, PMC-079, PMC-081, PMC-082, PMC-083, PMC-084, PMC-085]

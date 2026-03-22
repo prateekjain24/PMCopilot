@@ -2,7 +2,7 @@
 id: PMC-094
 title: Enable agent memory config
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: infra
 estimate: 1
 dependencies: [PMC-007, PMC-036, PMC-091]

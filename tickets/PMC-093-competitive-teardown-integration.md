@@ -2,7 +2,7 @@
 id: PMC-093
 title: Competitive teardown integration
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-035, PMC-091, PMC-053, PMC-038]

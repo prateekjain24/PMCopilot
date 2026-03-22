@@ -3,9 +3,24 @@
 import fs from "node:fs";
 import { FastMCP } from "fastmcp";
 import { loadConfig } from "./config.js";
-
-// Tools will be imported here as they are implemented (PMC-081..085)
-// import { ... } from "./tools/index.js";
+import {
+  listEmulatorsTool,
+  listDevicesTool,
+  startEmulatorTool,
+  installApkTool,
+  launchAppTool,
+  grantPermissionTool,
+  clearAppDataTool,
+  takeScreenshotTool,
+  recordScreenTool,
+  tapTool,
+  swipeTool,
+  typeTextTool,
+  pressKeyTool,
+  dumpUiTool,
+  getCurrentActivityTool,
+  getLogcatTool,
+} from "./tools/index.js";
 
 let config;
 try {
@@ -25,8 +40,31 @@ const server = new FastMCP({
   version: "0.1.0",
 });
 
-// Tools will be registered here as they are implemented (PMC-081..085)
-// server.addTool(...);
+// PMC-081: Device management (3 tools)
+server.addTool(listEmulatorsTool);
+server.addTool(listDevicesTool);
+server.addTool(startEmulatorTool);
+
+// PMC-082: App management (4 tools)
+server.addTool(installApkTool);
+server.addTool(launchAppTool);
+server.addTool(grantPermissionTool);
+server.addTool(clearAppDataTool);
+
+// PMC-083: Screenshot/video (2 tools)
+server.addTool(takeScreenshotTool);
+server.addTool(recordScreenTool);
+
+// PMC-084: Input (4 tools)
+server.addTool(tapTool);
+server.addTool(swipeTool);
+server.addTool(typeTextTool);
+server.addTool(pressKeyTool);
+
+// PMC-085: UI dump/logcat (3 tools)
+server.addTool(dumpUiTool);
+server.addTool(getCurrentActivityTool);
+server.addTool(getLogcatTool);
 
 // Graceful shutdown
 const shutdown = () => {

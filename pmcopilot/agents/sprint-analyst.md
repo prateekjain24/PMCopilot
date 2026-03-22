@@ -9,6 +9,7 @@ model: sonnet
 effort: medium
 maxTurns: 15
 permissionMode: default
+memory: project
 ---
 
 # Sprint Data Analyst

@@ -145,19 +145,19 @@
 | PMC-078 | Implement simulator input tools | tool | PMC-074 | done |
 | PMC-079 | Implement simulator accessibility tools | tool | PMC-074 | done |
 | PMC-080 | Scaffold emulator-bridge MCP server | mcp | PMC-002 | done |
-| PMC-081 | Implement emulator device management tools | tool | PMC-080 | todo |
-| PMC-082 | Implement emulator app management tools | tool | PMC-080 | todo |
-| PMC-083 | Implement emulator screenshot/video tools | tool | PMC-080 | todo |
-| PMC-084 | Implement emulator input tools | tool | PMC-080 | todo |
-| PMC-085 | Implement emulator UI dump tools | tool | PMC-080 | todo |
-| PMC-086 | Scaffold app-store-intel MCP server | infra | PMC-002 | todo |
-| PMC-087 | Implement app store search tools | tool | PMC-086 | todo |
-| PMC-088 | Implement app store details tools | tool | PMC-086 | todo |
-| PMC-089 | Implement app store reviews tools | tool | PMC-086 | todo |
-| PMC-090 | Implement app store rankings tools | tool | PMC-086 | todo |
-| PMC-091 | Write app-teardown agent | agent | PMC-074, PMC-080, PMC-086 | todo |
-| PMC-092 | Write ux-reviewer agent | agent | PMC-074, PMC-080 | todo |
-| PMC-093 | Wire competitive-teardown orchestration | orchestration | PMC-053, PMC-091, PMC-035 | todo |
+| PMC-081 | Implement emulator device management tools | tool | PMC-080 | done |
+| PMC-082 | Implement emulator app management tools | tool | PMC-080 | done |
+| PMC-083 | Implement emulator screenshot/video tools | tool | PMC-080 | done |
+| PMC-084 | Implement emulator input tools | tool | PMC-080 | done |
+| PMC-085 | Implement emulator UI dump tools | tool | PMC-080 | done |
+| PMC-086 | Scaffold app-store-intel MCP server | infra | PMC-002 | done |
+| PMC-087 | Implement app store search tools | tool | PMC-086 | done |
+| PMC-088 | Implement app store details tools | tool | PMC-086 | done |
+| PMC-089 | Implement app store reviews tools | tool | PMC-086 | done |
+| PMC-090 | Implement app store rankings tools | tool | PMC-086 | done |
+| PMC-091 | Write app-teardown agent | agent | PMC-074, PMC-080, PMC-086 | done |
+| PMC-092 | Write ux-reviewer agent | agent | PMC-074, PMC-080 | done |
+| PMC-093 | Wire competitive-teardown orchestration | orchestration | PMC-053, PMC-091, PMC-035 | done |
 
 ---
 
@@ -165,15 +165,15 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-094 | Enable agent memory config | infra | PMC-007, PMC-036, PMC-091 | todo |
-| PMC-095 | Create PRD validation hook | hook | PMC-004 | todo |
-| PMC-096 | Create simulator health check hook | hook | PMC-004, PMC-074, PMC-080 | todo |
-| PMC-097 | Create auto-screenshot hook | hook | PMC-004, PMC-074, PMC-080 | todo |
-| PMC-098 | Create teardown results hook | hook | PMC-004, PMC-091, PMC-053 | todo |
-| PMC-099 | Add graceful degradation | infra | PMC-006, PMC-011, PMC-032, PMC-035 | todo |
-| PMC-100 | Write README | docs | PMC-001 | todo |
-| PMC-101 | Write integration setup guide | docs | PMC-047, PMC-048, PMC-049 | todo |
-| PMC-102 | Write troubleshooting guide | docs | PMC-074, PMC-080 | todo |
-| PMC-103 | Write pm-frameworks unit tests | test | PMC-064, PMC-065, PMC-066, PMC-067, PMC-068, PMC-069, PMC-070, PMC-071, PMC-072, PMC-073 | todo |
-| PMC-104 | Write simulator/emulator integration tests | test | PMC-075, PMC-076, PMC-077, PMC-078, PMC-079, PMC-081, PMC-082, PMC-083, PMC-084, PMC-085 | todo |
-| PMC-105 | Prepare marketplace listing | docs | PMC-001, PMC-100 | todo |
+| PMC-094 | Enable agent memory config | infra | PMC-007, PMC-036, PMC-091 | done |
+| PMC-095 | Create PRD validation hook | hook | PMC-004 | done |
+| PMC-096 | Create simulator health check hook | hook | PMC-004, PMC-074, PMC-080 | done |
+| PMC-097 | Create auto-screenshot hook | hook | PMC-004, PMC-074, PMC-080 | done |
+| PMC-098 | Create teardown results hook | hook | PMC-004, PMC-091, PMC-053 | done |
+| PMC-099 | Add graceful degradation | infra | PMC-006, PMC-011, PMC-032, PMC-035 | done |
+| PMC-100 | Write README | docs | PMC-001 | done |
+| PMC-101 | Write integration setup guide | docs | PMC-047, PMC-048, PMC-049 | done |
+| PMC-102 | Write troubleshooting guide | docs | PMC-074, PMC-080 | done |
+| PMC-103 | Write pm-frameworks unit tests | test | PMC-064, PMC-065, PMC-066, PMC-067, PMC-068, PMC-069, PMC-070, PMC-071, PMC-072, PMC-073 | done |
+| PMC-104 | Write simulator/emulator integration tests | test | PMC-075, PMC-076, PMC-077, PMC-078, PMC-079, PMC-081, PMC-082, PMC-083, PMC-084, PMC-085 | done |
+| PMC-105 | Prepare marketplace listing | docs | PMC-001, PMC-100 | done |

@@ -2,7 +2,7 @@
 id: PMC-098
 title: Create teardown results hook
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: hook
 estimate: 1
 dependencies: [PMC-004, PMC-091, PMC-053]

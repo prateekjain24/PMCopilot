@@ -110,3 +110,11 @@ After prioritization, suggest:
 - Run `/pmcopilot:experiment` to validate assumptions behind the scoring
 - Run `/pmcopilot:roadmap` to place prioritized features on a timeline
 - Update Jira/Linear priority fields with the results
+
+## Graceful Degradation
+
+This skill works best with Jira connected but functions without it:
+
+- **Jira unavailable**: The `--from-jira` option is disabled. The user is prompted to provide a feature list manually as numbered items, bullet points, or comma-separated values.
+- **pm-frameworks MCP unavailable**: Scoring calculations are performed inline using the framework formulas rather than delegating to MCP tools.
+- All fallbacks prompt the user for manual input with clear instructions.

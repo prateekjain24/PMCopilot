@@ -2,7 +2,7 @@
 id: PMC-088
 title: App store details and version history tools
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: mcp-tool
 estimate: 1
 dependencies: [PMC-086]

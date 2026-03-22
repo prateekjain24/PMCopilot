@@ -2,7 +2,7 @@
 id: PMC-096
 title: Create simulator health check hook
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: hook
 estimate: 1
 dependencies: [PMC-004, PMC-074, PMC-080]

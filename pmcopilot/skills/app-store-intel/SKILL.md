@@ -144,3 +144,11 @@ After generating the report, suggest:
 - Use user sentiment themes to inform PRD requirements with `/pmcopilot:prd`.
 - Design experiments to address top negative themes with `/pmcopilot:experiment`.
 - Track whether future releases improve sentiment using a follow-up run of this skill.
+
+## Graceful Degradation
+
+This skill works best with the app-store-intel MCP server connected but functions without it:
+
+- **app-store-intel MCP unavailable**: The skill prompts the user to provide app metadata, ratings, and reviews manually. The user can paste data from App Store or Google Play web pages, or provide a CSV export.
+- **App not found on one platform**: Analysis proceeds with the platform where the app is available. The missing platform is noted in the report with a clear gap marker.
+- All fallbacks prompt the user for manual input with clear instructions.

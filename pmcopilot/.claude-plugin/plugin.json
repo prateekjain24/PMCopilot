@@ -1,6 +1,6 @@
 {
   "name": "pmcopilot",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "AI-powered copilot for Product Managers. Competitive teardowns via simulators and browsers, PRD generation, sprint analysis, market sizing, and more.",
   "author": {
     "name": "Prateek Jain",

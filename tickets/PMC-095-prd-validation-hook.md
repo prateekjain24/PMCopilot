@@ -2,7 +2,7 @@
 id: PMC-095
 title: Create PRD validation hook
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: hook
 estimate: 1
 dependencies: [PMC-004]

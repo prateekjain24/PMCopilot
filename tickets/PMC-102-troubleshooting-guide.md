@@ -2,7 +2,7 @@
 id: PMC-102
 title: Write troubleshooting guide
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: docs
 estimate: 1
 dependencies: [PMC-074, PMC-080]

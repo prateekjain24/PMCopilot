@@ -165,3 +165,13 @@ After generating the review, suggest:
 - Share the review with the team via Slack using `/pmcopilot:stakeholder-update`.
 - Feed velocity trends and risk patterns into roadmap planning with `/pmcopilot:roadmap`.
 - Run `/pmcopilot:metrics-review` to check whether shipped features moved product metrics.
+
+## Graceful Degradation
+
+This skill works best with Jira, Slack, Granola, and Google Calendar connected but functions without them:
+
+- **Jira unavailable**: The user is prompted to provide sprint data manually -- a list of tickets with status, story points, and assignees. Velocity trend analysis is limited to the current sprint only.
+- **Slack unavailable**: The Slack context step is skipped silently. Blocker and decision context is omitted from the review.
+- **Granola unavailable**: Meeting transcript analysis is skipped. Ceremony insights are omitted from the review.
+- **Google Calendar unavailable**: The Team Ceremonies section is omitted. Meeting load analysis is skipped.
+- All fallbacks prompt the user for manual input with clear instructions.

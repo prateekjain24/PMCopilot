@@ -113,3 +113,13 @@ Archive the update as a Confluence page using `mcp__claude_ai_Atlassian__createC
 
 All delivery options are additive -- the local markdown file is always generated first.
 If no delivery options are specified, only the local file is created.
+
+## Graceful Degradation
+
+This skill works best with Slack, Gmail, Jira, and Confluence connected but functions without them:
+
+- **Jira unavailable**: The user is prompted to provide shipped items, blockers, and priorities manually. The update is drafted from user-supplied data.
+- **Slack unavailable**: The `--slack-channel` and `--schedule` delivery options are disabled. The update is saved as a local markdown file only.
+- **Gmail unavailable**: The `--email-draft` delivery option is disabled. The user can copy the generated markdown into an email manually.
+- **Confluence unavailable**: The Confluence publishing option is disabled. The local markdown file serves as the archive.
+- All fallbacks prompt the user for manual input with clear instructions.

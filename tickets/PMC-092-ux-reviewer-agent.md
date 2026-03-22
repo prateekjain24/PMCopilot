@@ -2,7 +2,7 @@
 id: PMC-092
 title: UX reviewer agent
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: agent
 estimate: 1
 dependencies: [PMC-005]

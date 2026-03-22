@@ -2,7 +2,7 @@
 id: PMC-091
 title: App teardown agent
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: agent
 estimate: 1
 dependencies: [PMC-005, PMC-074, PMC-080]

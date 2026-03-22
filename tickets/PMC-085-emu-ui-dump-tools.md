@@ -2,7 +2,7 @@
 id: PMC-085
 title: Emulator UI inspection and logcat tools
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: mcp-tool
 estimate: 1
 dependencies: [PMC-080]

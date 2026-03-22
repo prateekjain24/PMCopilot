@@ -2,7 +2,7 @@
 id: PMC-099
 title: Add graceful degradation
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: infra
 estimate: 1
 dependencies: [PMC-006, PMC-011, PMC-032, PMC-035]

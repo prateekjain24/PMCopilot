@@ -2,7 +2,7 @@
 id: PMC-086
 title: Scaffold app-store-intel MCP server
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: mcp-scaffold
 estimate: 1
 dependencies: [PMC-002]

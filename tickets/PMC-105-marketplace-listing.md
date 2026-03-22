@@ -2,7 +2,7 @@
 id: PMC-105
 title: Prepare marketplace listing
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: docs
 estimate: 1
 dependencies: [PMC-001, PMC-100]

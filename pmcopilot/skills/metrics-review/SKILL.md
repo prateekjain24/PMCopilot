@@ -165,3 +165,12 @@ After generating the review, suggest:
 - Feed anomalies into experiment design with `/pmcopilot:experiment` to test improvement hypotheses.
 - Use the weakest-stage or lowest-input-metric finding to inform roadmap priorities with `/pmcopilot:roadmap`.
 - Run `/pmcopilot:sprint-review` to check whether recent sprint deliveries moved the needle on flagged metrics.
+
+## Graceful Degradation
+
+This skill works best with Amplitude or Mixpanel connected but functions without them:
+
+- **Amplitude unavailable**: The data-analyst agent skips Amplitude queries. The user is prompted to provide metric values manually or upload a CSV export from their analytics dashboard.
+- **Mixpanel unavailable**: The data-analyst agent skips Mixpanel queries. The user is prompted to supply data manually or via CSV.
+- **Both analytics platforms unavailable**: The skill operates in manual-input mode. The user provides current and historical metric values directly, and the skill still applies anomaly detection, framework analysis, and recommendations.
+- All fallbacks prompt the user for manual input with clear instructions.

@@ -210,6 +210,52 @@ docs/teardowns/screenshots/{competitor-name}/
 
 Create directories if they do not exist.
 
+## Orchestration Pipeline
+
+This skill uses TypeScript orchestration files in `src/` to coordinate the parallel workstreams:
+
+### src/orchestrator.ts
+
+The `orchestrateTeardown(competitor, options)` function manages the full pipeline:
+
+1. **Parallel dispatch**: Launches three workstreams simultaneously via `Promise.all`:
+   - `dispatchAppTeardown()` -- sends the app-teardown agent brief with platform targets and output directory
+   - `dispatchWebTeardown()` -- sends the web-teardown agent brief with the competitor domain
+   - `fetchStoreIntel()` -- queries app-store-intel MCP tools for store metadata and reviews
+2. **Graceful failure handling**: Each workstream is wrapped in error handling. If one fails (e.g., no APK available for the app teardown), the remaining workstreams continue and the report marks the failed section as "Data not available."
+3. **Optional UX review**: If `--ux-review` is passed, a fourth step dispatches the ux-reviewer agent against the collected screenshots after the app teardown completes.
+4. **Result collection**: All workstream results are gathered with status tracking (success, partial, failed) and timing data.
+
+### src/report-assembler.ts
+
+The `assembleTeardownReport(appData, webData, storeData, uxReview?)` function produces the final markdown report:
+
+- Accepts nullable data for each workstream -- any missing section shows "Data not available" rather than being silently omitted.
+- Generates all eight report sections (Executive Summary, App Overview, Product Teardown, UX Assessment, Market Positioning, Web Presence, Strengths/Weaknesses, Strategic Recommendations).
+- Includes a metadata footer with generation date and data source inventory.
+
+### Pipeline flow
+
+```
+/pmcopilot:competitive-teardown "Competitor" --platform all --ux-review
+  |
+  v
+orchestrator.ts: orchestrateTeardown()
+  |
+  +---> [parallel] app-teardown agent ---> simulator-bridge / emulator-bridge MCP
+  +---> [parallel] web-teardown agent ---> Chrome MCP
+  +---> [parallel] app-store-intel MCP queries
+  |
+  v (after all complete)
+  +---> [sequential] ux-reviewer agent (if --ux-review)
+  |
+  v
+report-assembler.ts: assembleTeardownReport()
+  |
+  v
+Final report: docs/teardowns/competitive-teardown-{name}-{date}.md
+```
+
 ## Next Steps
 
 After generating the teardown, suggest:
@@ -219,3 +265,13 @@ After generating the teardown, suggest:
 - Use strategic recommendations to update roadmap priorities with `/pmcopilot:roadmap`.
 - Run `/pmcopilot:prioritize` on the recommendations to determine sequencing.
 - Schedule a follow-up teardown in 3-6 months to track competitor evolution.
+
+## Graceful Degradation
+
+This skill works best with simulators, emulators, and app-store-intel MCP connected but functions without them:
+
+- **iOS Simulator unavailable**: The app-teardown agent skips iOS analysis. If Android is available, the teardown proceeds on Android only. If neither is available, the skill falls back to web-only and store data analysis.
+- **Android Emulator unavailable**: The app-teardown agent skips Android analysis. If iOS is available, the teardown proceeds on iOS only.
+- **Both simulators unavailable**: The app teardown section is marked "Data not available." The skill proceeds with web-teardown and app-store-intel data, producing a report covering web presence, store performance, and strategic analysis.
+- **app-store-intel MCP unavailable**: App Store Performance (Section 5) uses data gathered by the web-teardown agent from public store pages, or the user is prompted to provide ratings and review data manually.
+- All fallbacks prompt the user for manual input with clear instructions.

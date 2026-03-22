@@ -105,3 +105,12 @@ Every generated PRD must include these sections with substantive content (no pla
 8. **Milestones** and rough timeline
 9. **Risks**, dependencies, and mitigations
 10. **Open questions** requiring stakeholder input
+
+## Graceful Degradation
+
+This skill works best with Jira, Confluence, and Figma connected but functions without them:
+
+- **Jira unavailable**: Skip backlog context gathering. The PRD is written from user-provided inputs and workspace files only.
+- **Confluence unavailable**: The PRD is saved as a local markdown file. The `--publish-confluence` option is disabled with a note to the user.
+- **Figma unavailable**: Design references are omitted. The PRD includes placeholder sections for design links that the user can fill in manually.
+- All fallbacks prompt the user for manual input with clear instructions.

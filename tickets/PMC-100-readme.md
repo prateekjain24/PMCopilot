@@ -2,7 +2,7 @@
 id: PMC-100
 title: Write README
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: docs
 estimate: 1
 dependencies: [PMC-001]

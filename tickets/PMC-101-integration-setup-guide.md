@@ -2,7 +2,7 @@
 id: PMC-101
 title: Write integration setup guide
 phase: 5 - Polish and Distribution
-status: todo
+status: done
 type: docs
 estimate: 1
 dependencies: [PMC-047, PMC-048, PMC-049]
