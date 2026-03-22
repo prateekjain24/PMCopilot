@@ -91,16 +91,16 @@
 | PMC-038 | Write research-synthesizer agent | agent | PMC-021 | done |
 | PMC-039 | Wire Jira into sprint-review | integration | PMC-032 | done |
 | PMC-040 | Wire Jira into prioritize | integration | PMC-011 | done |
-| PMC-041 | Wire Jira/Confluence into PRD | integration | PMC-006 | todo |
-| PMC-042 | Wire Slack into stakeholder-update | integration | PMC-025 | todo |
-| PMC-043 | Wire Slack into research-synthesizer | integration | PMC-038 | todo |
-| PMC-044 | Wire Granola into user-research | integration | PMC-021 | todo |
-| PMC-045 | Wire Gmail into stakeholder-update | integration | PMC-025 | todo |
-| PMC-046 | Wire GCal into sprint-review | integration | PMC-032 | todo |
-| PMC-047 | Add Amplitude MCP config | config | PMC-002 | todo |
-| PMC-048 | Add Mixpanel MCP config | mcp | PMC-002 | todo |
-| PMC-049 | Add Figma MCP config | mcp | PMC-002 | todo |
-| PMC-050 | Wire analytics into metrics-review | integration | PMC-034, PMC-047, PMC-048 | todo |
+| PMC-041 | Wire Jira/Confluence into PRD | integration | PMC-006 | done |
+| PMC-042 | Wire Slack into stakeholder-update | integration | PMC-025 | done |
+| PMC-043 | Wire Slack into research-synthesizer | integration | PMC-038 | done |
+| PMC-044 | Wire Granola into user-research | integration | PMC-021 | done |
+| PMC-045 | Wire Gmail into stakeholder-update | integration | PMC-025 | done |
+| PMC-046 | Wire GCal into sprint-review | integration | PMC-032 | done |
+| PMC-047 | Add Amplitude MCP config | config | PMC-002 | done |
+| PMC-048 | Add Mixpanel MCP config | mcp | PMC-002 | done |
+| PMC-049 | Add Figma MCP config | mcp | PMC-002 | done |
+| PMC-050 | Wire analytics into metrics-review | integration | PMC-034, PMC-047, PMC-048 | done |
 | PMC-051 | Wire Figma into ux-reviewer/PRD | integration | PMC-049, PMC-006 | todo |
 | PMC-052 | Integrate multi-source sprint review | integration | PMC-039, PMC-046, PMC-036 | todo |
 

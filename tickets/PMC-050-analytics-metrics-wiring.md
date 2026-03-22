@@ -2,7 +2,7 @@
 id: PMC-050
 title: Wire analytics MCPs into metrics-review skill and data-analyst agent
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-034, PMC-037, PMC-047]

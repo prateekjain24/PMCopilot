@@ -2,7 +2,7 @@
 id: PMC-044
 title: Wire Granola meeting tools into user-research skill
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-021]

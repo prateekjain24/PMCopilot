@@ -14,6 +14,7 @@ allowed-tools:
   - Glob
   - mcp__claude_ai_Slack__*
   - mcp__claude_ai_Atlassian__*
+  - mcp__claude_ai_Gmail__gmail_create_draft
 argument-hint: "[format: weekly|monthly|exec-summary] [--period YYYY-MM-DD:YYYY-MM-DD]"
 ---
 
@@ -88,12 +89,27 @@ Save the generated update to:
 docs/updates/{format}-{YYYY-MM-DD}.md
 ```
 
-Where `{format}` is one of `weekly`, `monthly`, or `exec-summary`, and `{YYYY-MM-DD}` is today&apos;s date.
+Where `{format}` is one of `weekly`, `monthly`, or `exec-summary`, and `{YYYY-MM-DD}` is today's date.
 
-## Next Steps
+## Delivery Options
 
-After generating the update, offer the user these options:
+After generating the update, offer these delivery methods:
 
-- **Send via Slack** -- Post the update to a chosen channel using `mcp__claude_ai_Slack__slack_send_message`.
-- **Draft email via Gmail** -- Create a draft email with the update content for the user to review and send.
-- **Post to Confluence** -- Publish the update as a Confluence page using `mcp__claude_ai_Atlassian__createConfluencePage` for long-term archival.
+### Send to Slack (`--slack-channel CHANNEL_NAME`)
+Post the update directly to a Slack channel using `mcp__claude_ai_Slack__slack_send_message`.
+For rich formatting, use `mcp__claude_ai_Slack__slack_create_canvas` to create a linkable canvas.
+
+### Schedule for Later (`--schedule DATETIME`)
+Schedule the update for future delivery using `mcp__claude_ai_Slack__slack_schedule_message`.
+Useful for Monday morning status updates drafted on Friday.
+
+### Draft Email (`--email-draft RECIPIENTS`)
+Create a Gmail draft with the update content using `mcp__claude_ai_Gmail__gmail_create_draft`.
+The subject line is derived from the format and date (e.g., "Weekly Update - 2026-03-22").
+Confirms draft creation with subject, recipients, and draft ID.
+
+### Publish to Confluence
+Archive the update as a Confluence page using `mcp__claude_ai_Atlassian__createConfluencePage`.
+
+All delivery options are additive -- the local markdown file is always generated first.
+If no delivery options are specified, only the local file is created.

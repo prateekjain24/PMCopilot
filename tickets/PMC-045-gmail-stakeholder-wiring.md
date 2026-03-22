@@ -2,7 +2,7 @@
 id: PMC-045
 title: Wire Gmail gmail_create_draft into stakeholder-update skill
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-025]

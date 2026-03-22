@@ -2,7 +2,7 @@
 id: PMC-042
 title: Wire Slack send_message, create_canvas, schedule_message into stakeholder-update skill
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-025]

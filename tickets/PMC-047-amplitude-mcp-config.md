@@ -2,7 +2,7 @@
 id: PMC-047
 title: Add Amplitude MCP server configuration
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-002]

@@ -2,7 +2,7 @@
 id: PMC-043
 title: Wire Slack search tools into research-synthesizer agent
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-038]

@@ -28,6 +28,18 @@
     "pm-frameworks": {
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/pm-frameworks/dist/index.js"]
+    },
+    "amplitude": {
+      "type": "http",
+      "url": "https://mcp.amplitude.com/mcp"
+    },
+    "mixpanel": {
+      "type": "http",
+      "url": "https://mcp.mixpanel.com/mcp"
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
     }
   }
 }

@@ -15,6 +15,7 @@ allowed-tools:
   - Agent(sprint-analyst)
   - mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
   - mcp__claude_ai_Atlassian__getJiraIssue
+  - mcp__claude_ai_Google_Calendar__gcal_list_events
 context: fork
 agent: general-purpose
 model: sonnet
@@ -44,6 +45,17 @@ Use Jira MCP tools to retrieve all issues belonging to the target sprint:
 Delegate the bulk data pulling and initial analysis to `Agent(sprint-analyst)`.
 
 **Fallback**: If Jira MCP is not connected or returns no data, ask the user to provide sprint data manually -- a list of tickets with their status, story points, and assignees. Proceed with whatever data is available.
+
+#### Calendar Context (Optional)
+
+If Google Calendar MCP is available, use `mcp__claude_ai_Google_Calendar__gcal_list_events` to pull
+calendar events for the sprint date range. This adds context about:
+- Team ceremonies (standups, retros, planning sessions held vs. skipped)
+- Meeting load (total meeting hours during the sprint)
+- Ad-hoc meetings (unplanned discussions that may indicate blockers or scope changes)
+
+Include a brief "Team Ceremonies" section in the final review if calendar data is available.
+If Google Calendar is not connected, skip this step silently.
 
 ### Step 2 -- Analyze Velocity
 

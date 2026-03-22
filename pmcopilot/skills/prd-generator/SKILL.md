@@ -6,7 +6,7 @@ description: >
   Can incorporate competitive research, user research, and analytics data.
 disable-model-invocation: false
 user-invocable: true
-allowed-tools: Read, Write, Bash, Grep, Glob, Agent(prd-writer)
+allowed-tools: Read, Write, Bash, Grep, Glob, Agent(prd-writer), mcp__claude_ai_Atlassian__createJiraIssue, mcp__claude_ai_Atlassian__createConfluencePage
 context: fork
 agent: general-purpose
 model: opus
@@ -72,7 +72,16 @@ Template file: `templates/stripe-prd.md`
 5. **Output**: Save the generated PRD to `docs/prds/PRD-{feature-name}.md`.
    Create the `docs/prds/` directory if it does not exist.
 
-6. **Next steps**: After the PRD is written, suggest:
+6. **Publish options** (optional):
+   - `--publish-confluence`: Create a Confluence page with the PRD content using
+     `mcp__claude_ai_Atlassian__createConfluencePage`. Ask the user for the target
+     Confluence space key if not specified.
+   - `--create-jira`: Create a Jira epic or story for the PRD using
+     `mcp__claude_ai_Atlassian__createJiraIssue`. Link it to the Confluence page
+     if one was created. Use the PRD title as the issue summary.
+   - These options are additive -- the local markdown file is always generated first.
+
+7. **Next steps**: After the PRD is written, suggest:
    - Share with stakeholders for review
    - Run `/pmcopilot:prioritize` to score the feature
    - Run `/pmcopilot:metrics-review` to validate success metrics

@@ -13,6 +13,8 @@ allowed-tools:
   - Grep
   - Glob
   - Agent(data-analyst)
+  - mcp__amplitude__*
+  - mcp__mixpanel__*
 context: fork
 agent: general-purpose
 model: sonnet
