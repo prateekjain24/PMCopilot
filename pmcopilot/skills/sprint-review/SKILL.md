@@ -16,6 +16,9 @@ allowed-tools:
   - mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
   - mcp__claude_ai_Atlassian__getJiraIssue
   - mcp__claude_ai_Google_Calendar__gcal_list_events
+  - mcp__claude_ai_Slack__slack_search_public_and_private
+  - mcp__claude_ai_Granola__list_meetings
+  - mcp__claude_ai_Granola__get_meeting_transcript
 context: fork
 agent: general-purpose
 model: sonnet
@@ -56,6 +59,23 @@ calendar events for the sprint date range. This adds context about:
 
 Include a brief "Team Ceremonies" section in the final review if calendar data is available.
 If Google Calendar is not connected, skip this step silently.
+
+#### Slack Context (Optional)
+
+If Slack MCP is available, use `mcp__claude_ai_Slack__slack_search_public_and_private` to search
+for sprint-related discussions during the sprint date range. Look for:
+- Blockers raised and how they were resolved
+- Key decisions made in channels
+- Team sentiment and morale signals
+
+#### Meeting Notes (Optional)
+
+If Granola MCP is available, use `mcp__claude_ai_Granola__list_meetings` and
+`mcp__claude_ai_Granola__get_meeting_transcript` to pull transcripts from sprint ceremonies
+(standups, planning, retro) during the sprint window. Extract:
+- Key decisions made during ceremonies
+- Action items and their owners
+- Recurring discussion themes across standups
 
 ### Step 2 -- Analyze Velocity
 

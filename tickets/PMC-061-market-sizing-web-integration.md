@@ -2,7 +2,7 @@
 id: PMC-061
 title: Market Sizing Web Research Integration
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-030, PMC-053]

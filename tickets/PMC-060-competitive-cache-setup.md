@@ -2,7 +2,7 @@
 id: PMC-060
 title: Competitive Intelligence Cache Setup
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: infra
 estimate: 1
 dependencies: [PMC-053]

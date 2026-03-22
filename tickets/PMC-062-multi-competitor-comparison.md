@@ -2,7 +2,7 @@
 id: PMC-062
 title: Multi-Competitor Comparison Matrix
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: script
 estimate: 1
 dependencies: [PMC-053, PMC-059]

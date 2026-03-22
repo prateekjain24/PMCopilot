@@ -2,7 +2,7 @@
 id: PMC-058
 title: Teardown Report Template
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: template
 estimate: 1
 dependencies: [PMC-035]

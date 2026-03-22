@@ -2,7 +2,7 @@
 id: PMC-059
 title: Feature Matrix Template
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: template
 estimate: 1
 dependencies: [PMC-035]

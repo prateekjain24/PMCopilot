@@ -2,7 +2,7 @@
 id: PMC-052
 title: Full sprint review pulling from Jira + Slack + Granola + GCal
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-039, PMC-046, PMC-044]

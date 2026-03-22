@@ -2,7 +2,7 @@
 id: PMC-051
 title: Wire Figma MCP into ux-reviewer agent and PRD skill
 phase: 2 - Tool Integrations
-status: todo
+status: done
 type: integration
 estimate: 1
 dependencies: [PMC-049, PMC-006]

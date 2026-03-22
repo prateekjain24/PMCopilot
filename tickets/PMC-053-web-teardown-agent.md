@@ -2,7 +2,7 @@
 id: PMC-053
 title: Create web-teardown agent definition
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: agent
 estimate: 1
 dependencies: [PMC-005]

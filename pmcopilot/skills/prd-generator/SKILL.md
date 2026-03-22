@@ -6,7 +6,7 @@ description: >
   Can incorporate competitive research, user research, and analytics data.
 disable-model-invocation: false
 user-invocable: true
-allowed-tools: Read, Write, Bash, Grep, Glob, Agent(prd-writer), mcp__claude_ai_Atlassian__createJiraIssue, mcp__claude_ai_Atlassian__createConfluencePage
+allowed-tools: Read, Write, Bash, Grep, Glob, Agent(prd-writer), mcp__claude_ai_Atlassian__createJiraIssue, mcp__claude_ai_Atlassian__createConfluencePage, mcp__figma__*
 context: fork
 agent: general-purpose
 model: opus
@@ -55,6 +55,9 @@ Template file: `templates/stripe-prd.md`
    - User research artifacts (personas, interview notes, JTBD canvases)
    - Analytics data or metrics definitions
    - Related Jira/Linear tickets (via connected MCP if available)
+   - Figma designs: If a Figma file URL is provided (via `--figma URL`), use
+     `mcp__figma__*` tools to pull relevant frames and incorporate design references
+     into the PRD. Reference specific frame names and embed exported image URLs.
 
 3. **Ask clarifying questions** if the input is too vague. Before drafting, ensure you have:
    - Who are the target users?

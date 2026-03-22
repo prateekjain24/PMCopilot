@@ -1,0 +1,24 @@
+{
+  "name": "@pmcopilot/pm-frameworks",
+  "version": "0.1.0",
+  "description": "MCP server providing PM prioritization and analysis frameworks (RICE, ICE, Kano, MoSCoW, TAM/SAM/SOM)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "pm-frameworks": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "fastmcp": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0"
+  }
+}

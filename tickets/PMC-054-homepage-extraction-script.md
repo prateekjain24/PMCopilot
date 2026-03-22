@@ -2,7 +2,7 @@
 id: PMC-054
 title: Create homepage data extraction JS script
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: script
 estimate: 1
 dependencies: [PMC-053]

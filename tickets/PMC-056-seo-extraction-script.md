@@ -2,7 +2,7 @@
 id: PMC-056
 title: Create SEO metadata extraction JS script
 phase: 3 - Web Teardown Engine
-status: todo
+status: done
 type: script
 estimate: 1
 dependencies: [PMC-053]

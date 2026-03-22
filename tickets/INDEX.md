@@ -101,8 +101,8 @@
 | PMC-048 | Add Mixpanel MCP config | mcp | PMC-002 | done |
 | PMC-049 | Add Figma MCP config | mcp | PMC-002 | done |
 | PMC-050 | Wire analytics into metrics-review | integration | PMC-034, PMC-047, PMC-048 | done |
-| PMC-051 | Wire Figma into ux-reviewer/PRD | integration | PMC-049, PMC-006 | todo |
-| PMC-052 | Integrate multi-source sprint review | integration | PMC-039, PMC-046, PMC-036 | todo |
+| PMC-051 | Wire Figma into ux-reviewer/PRD | integration | PMC-049, PMC-006 | done |
+| PMC-052 | Integrate multi-source sprint review | integration | PMC-039, PMC-046, PMC-036 | done |
 
 ---
 
@@ -110,16 +110,16 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-053 | Write web-teardown agent | agent | PMC-035 | todo |
-| PMC-054 | Create homepage extraction script | script | PMC-053 | todo |
-| PMC-055 | Create pricing extraction script | script | PMC-053 | todo |
-| PMC-056 | Create SEO extraction script | script | PMC-053 | todo |
-| PMC-057 | Create tech stack detection script | script | PMC-053 | todo |
-| PMC-058 | Create teardown report template | template | PMC-053 | todo |
-| PMC-059 | Create feature matrix template | template | PMC-053 | todo |
-| PMC-060 | Set up competitive intel cache | infra | PMC-053 | todo |
-| PMC-061 | Integrate web research into market-sizing | integration | PMC-030, PMC-053 | todo |
-| PMC-062 | Build multi-competitor comparison | integration | PMC-053, PMC-058 | todo |
+| PMC-053 | Write web-teardown agent | agent | PMC-035 | done |
+| PMC-054 | Create homepage extraction script | script | PMC-053 | done |
+| PMC-055 | Create pricing extraction script | script | PMC-053 | done |
+| PMC-056 | Create SEO extraction script | script | PMC-053 | done |
+| PMC-057 | Create tech stack detection script | script | PMC-053 | done |
+| PMC-058 | Create teardown report template | template | PMC-053 | done |
+| PMC-059 | Create feature matrix template | template | PMC-053 | done |
+| PMC-060 | Set up competitive intel cache | infra | PMC-053 | done |
+| PMC-061 | Integrate web research into market-sizing | integration | PMC-030, PMC-053 | done |
+| PMC-062 | Build multi-competitor comparison | integration | PMC-053, PMC-058 | done |
 
 ---
 
@@ -127,9 +127,9 @@
 
 | ID | Title | Type | Dependencies | Status |
 |----|-------|------|--------------|--------|
-| PMC-063 | Scaffold pm-frameworks MCP server | mcp | PMC-002 | todo |
-| PMC-064 | Implement RICE score tools | tool | PMC-063 | todo |
-| PMC-065 | Implement ICE score tool | tool | PMC-063 | todo |
+| PMC-063 | Scaffold pm-frameworks MCP server | mcp | PMC-002 | done |
+| PMC-064 | Implement RICE score tools | tool | PMC-063 | done |
+| PMC-065 | Implement ICE score tool | tool | PMC-063 | done |
 | PMC-066 | Implement Kano classify tools | tool | PMC-063 | todo |
 | PMC-067 | Implement MoSCoW sort tool | tool | PMC-063 | todo |
 | PMC-068 | Implement TAM/SAM/SOM tool | tool | PMC-063 | todo |
