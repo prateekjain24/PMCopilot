@@ -1,7 +1,20 @@
 #!/usr/bin/env node
 
 import { FastMCP } from "fastmcp";
-import { riceScoreTool, riceBatchTool, iceScoreTool } from "./tools/index.js";
+import {
+  riceScoreTool,
+  riceBatchTool,
+  iceScoreTool,
+  kanoClassifyTool,
+  kanoBatchTool,
+  moscowSortTool,
+  tamSamSomTool,
+  weightedScoreTool,
+  opportunityScoreTool,
+  costOfDelayTool,
+  sampleSizeCalcTool,
+  significanceTestTool,
+} from "./tools/index.js";
 
 const server = new FastMCP({
   name: "pm-frameworks",
@@ -12,6 +25,15 @@ const server = new FastMCP({
 server.addTool(riceScoreTool);
 server.addTool(riceBatchTool);
 server.addTool(iceScoreTool);
+server.addTool(kanoClassifyTool);
+server.addTool(kanoBatchTool);
+server.addTool(moscowSortTool);
+server.addTool(tamSamSomTool);
+server.addTool(weightedScoreTool);
+server.addTool(opportunityScoreTool);
+server.addTool(costOfDelayTool);
+server.addTool(sampleSizeCalcTool);
+server.addTool(significanceTestTool);
 
 // Graceful shutdown
 const shutdown = () => {

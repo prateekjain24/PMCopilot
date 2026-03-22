@@ -2,7 +2,7 @@
 id: PMC-080
 title: Scaffold emulator-bridge MCP server
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: mcp-scaffold
 estimate: 1
 dependencies: [PMC-002]

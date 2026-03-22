@@ -130,21 +130,21 @@
 | PMC-063 | Scaffold pm-frameworks MCP server | mcp | PMC-002 | done |
 | PMC-064 | Implement RICE score tools | tool | PMC-063 | done |
 | PMC-065 | Implement ICE score tool | tool | PMC-063 | done |
-| PMC-066 | Implement Kano classify tools | tool | PMC-063 | todo |
-| PMC-067 | Implement MoSCoW sort tool | tool | PMC-063 | todo |
-| PMC-068 | Implement TAM/SAM/SOM tool | tool | PMC-063 | todo |
-| PMC-069 | Implement weighted score tool | tool | PMC-063 | todo |
-| PMC-070 | Implement opportunity score tool | tool | PMC-063 | todo |
-| PMC-071 | Implement cost of delay tool | tool | PMC-063 | todo |
-| PMC-072 | Implement sample size calculator | tool | PMC-063 | todo |
-| PMC-073 | Implement significance test tool | tool | PMC-063 | todo |
-| PMC-074 | Scaffold simulator-bridge MCP server | mcp | PMC-002 | todo |
-| PMC-075 | Implement simulator device management tools | tool | PMC-074 | todo |
-| PMC-076 | Implement simulator app management tools | tool | PMC-074 | todo |
-| PMC-077 | Implement simulator screenshot/video tools | tool | PMC-074 | todo |
-| PMC-078 | Implement simulator input tools | tool | PMC-074 | todo |
-| PMC-079 | Implement simulator accessibility tools | tool | PMC-074 | todo |
-| PMC-080 | Scaffold emulator-bridge MCP server | mcp | PMC-002 | todo |
+| PMC-066 | Implement Kano classify tools | tool | PMC-063 | done |
+| PMC-067 | Implement MoSCoW sort tool | tool | PMC-063 | done |
+| PMC-068 | Implement TAM/SAM/SOM tool | tool | PMC-063 | done |
+| PMC-069 | Implement weighted score tool | tool | PMC-063 | done |
+| PMC-070 | Implement opportunity score tool | tool | PMC-063 | done |
+| PMC-071 | Implement cost of delay tool | tool | PMC-063 | done |
+| PMC-072 | Implement sample size calculator | tool | PMC-063 | done |
+| PMC-073 | Implement significance test tool | tool | PMC-063 | done |
+| PMC-074 | Scaffold simulator-bridge MCP server | mcp | PMC-002 | done |
+| PMC-075 | Implement simulator device management tools | tool | PMC-074 | done |
+| PMC-076 | Implement simulator app management tools | tool | PMC-074 | done |
+| PMC-077 | Implement simulator screenshot/video tools | tool | PMC-074 | done |
+| PMC-078 | Implement simulator input tools | tool | PMC-074 | done |
+| PMC-079 | Implement simulator accessibility tools | tool | PMC-074 | done |
+| PMC-080 | Scaffold emulator-bridge MCP server | mcp | PMC-002 | done |
 | PMC-081 | Implement emulator device management tools | tool | PMC-080 | todo |
 | PMC-082 | Implement emulator app management tools | tool | PMC-080 | todo |
 | PMC-083 | Implement emulator screenshot/video tools | tool | PMC-080 | todo |

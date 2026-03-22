@@ -2,7 +2,7 @@
 id: PMC-075
 title: Simulator Device Management Tools
 phase: 4 - App Teardown Engine
-status: todo
+status: done
 type: mcp-tool
 estimate: 1
 dependencies: [PMC-074]

@@ -1,2 +1,10 @@
 export { riceScoreTool, riceBatchTool } from "./rice.js";
 export { iceScoreTool } from "./ice.js";
+export { kanoClassifyTool, kanoBatchTool } from "./kano.js";
+export { moscowSortTool } from "./moscow.js";
+export { tamSamSomTool } from "./tam-sam-som.js";
+export { weightedScoreTool } from "./weighted-score.js";
+export { opportunityScoreTool } from "./opportunity-score.js";
+export { costOfDelayTool } from "./cost-of-delay.js";
+export { sampleSizeCalcTool } from "./sample-size-calc.js";
+export { significanceTestTool } from "./significance-test.js";
