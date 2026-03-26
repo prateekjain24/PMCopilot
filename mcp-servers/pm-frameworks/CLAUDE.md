@@ -26,7 +26,7 @@
 |------|---------|
 | `tam_sam_som` | Calculate TAM, SAM, SOM from inputs |
 
-Batch variants available for RICE and ICE (score multiple items at once).
+Batch variants available for RICE and Kano (score multiple items at once).
 
 ## Code Layout
 

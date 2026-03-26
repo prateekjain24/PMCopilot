@@ -1,6 +1,6 @@
 # MCP Servers Directory
 
-Four custom MCP servers, all TypeScript + Node.js using FastMCP with STDIO transport.
+Four custom STDIO MCP servers, all TypeScript + Node.js using FastMCP, plus three external HTTP MCP servers.
 
 ## Standard Directory Layout
 
@@ -11,7 +11,7 @@ mcp-servers/<name>/
 │   ├── tools/            # One file per tool + index.ts barrel
 │   ├── helpers/ or utils/ # Shared utilities
 │   ├── types.ts          # Shared type definitions
-│   └── config.ts         # Constants and configuration
+│   └── config.ts         # Constants and configuration (optional)
 ├── tests/                # Unit tests
 ├── package.json
 ├── tsconfig.json
@@ -90,5 +90,15 @@ Tools are namespaced: `mcp__<server-name>__<tool-name>`
 | emulator-bridge | 16 | Android Emulator via `adb` |
 | app-store-intel | 10 | App Store + Play Store data extraction |
 | pm-frameworks | 12 | Prioritization, experimentation, market sizing |
+
+## External HTTP MCP Servers
+
+Three external HTTP MCPs are registered in `.mcp.json` and used by agents:
+
+| Server | URL | Used By |
+|--------|-----|---------|
+| amplitude | `https://mcp.amplitude.com/mcp` | data-analyst agent |
+| mixpanel | `https://mcp.mixpanel.com/mcp` | data-analyst agent |
+| figma | `https://mcp.figma.com/mcp` | prd command, ux-reviewer agent |
 
 Reference: `docs/design/02-MCP-SERVERS.md`

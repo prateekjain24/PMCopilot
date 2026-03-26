@@ -77,3 +77,18 @@ claude --plugin-dir .
 ```
 
 Hook scripts live in `hooks/` and are referenced from `hooks/hooks.json`. Exit code 0 = allow, 2 = block (reason on stderr).
+
+## Repository Layout
+
+| Directory | Contents |
+|-----------|----------|
+| `commands/` | 12 slash-command Markdown files |
+| `agents/` | 7 agent system-prompt Markdown files |
+| `skills/` | Background skills (each in its own subdirectory with SKILL.md) |
+| `mcp-servers/` | 4 custom STDIO MCP servers (TypeScript) |
+| `hooks/` | Lifecycle hook scripts + hooks.json |
+| `src/` | Shared utilities and plugin bootstrap code |
+| `templates/` | PRD, roadmap, and report templates |
+| `marketplace/` | Plugin marketplace metadata and assets |
+| `docs/design/` | Design documents (files 00-10) |
+| `scripts/` | Dev/build/release helper scripts |

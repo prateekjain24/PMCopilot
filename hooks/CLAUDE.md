@@ -9,13 +9,58 @@ Hooks are bash scripts triggered by Claude Code lifecycle events. They automate 
 ```json
 {
   "hooks": {
-    "SessionStart": [{ "command": "./hooks/check-simulators.sh" }],
-    "PreToolUse": [{ "command": "./hooks/check-simulator-running.sh", "tools": ["mcp__simulator-bridge__*", "mcp__emulator-bridge__*"] }],
-    "PostToolUse": [
-      { "command": "./hooks/validate-prd-structure.sh", "tools": ["Write", "Edit"] },
-      { "command": "./hooks/auto-screenshot.sh", "tools": ["mcp__simulator-bridge__tap", "mcp__simulator-bridge__swipe", "mcp__emulator-bridge__tap", "mcp__emulator-bridge__swipe"] }
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-simulators.sh"
+          }
+        ]
+      }
     ],
-    "SubagentStop": [{ "command": "./hooks/collect-teardown-results.sh", "agents": ["app-teardown", "web-teardown"] }]
+    "PreToolUse": [
+      {
+        "matcher": "mcp__simulator-bridge__*|mcp__emulator-bridge__*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-simulator-running.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-prd-structure.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__simulator-bridge__tap|mcp__simulator-bridge__swipe|mcp__emulator-bridge__tap|mcp__emulator-bridge__swipe",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-screenshot.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "app-teardown|web-teardown",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/collect-teardown-results.sh"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
