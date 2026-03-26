@@ -1,0 +1,21 @@
+{
+  "name": "pmcopilot",
+  "version": "1.0.0",
+  "description": "AI-powered copilot for Product Managers. Competitive teardowns via simulators and browsers, PRD generation, sprint analysis, market sizing, and more.",
+  "author": {
+    "name": "Prateek Jain",
+    "email": "prateekjain24@outlook.com",
+    "url": "https://github.com/prateekjain24"
+  },
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "competitive-analysis",
+    "prd",
+    "roadmap",
+    "sprint",
+    "prioritization",
+    "market-sizing",
+    "app-teardown"
+  ]
+}
