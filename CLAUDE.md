@@ -29,8 +29,8 @@ Plugin manifest lives at `.claude-plugin/plugin.json`. Development mode: `claude
 
 ## Component Inventory
 
-### 12 Skills
-competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review
+### 13 Skills
+competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review, housekeeping
 
 ### 7 Agents
 | Agent | Model | Key Role |
@@ -60,51 +60,6 @@ Skills orchestrate agents which use MCP tools. Example flow:
     -> app-store-intel MCP -> App Store/Play Store APIs
   -> research-synthesizer agent -> unified report
 ```
-
-## Connected External MCP Servers
-
-These are already connected and referenced by their server IDs in skill/agent definitions:
-- **Atlassian (Jira + Confluence)**: Sprint data, ticket management, Confluence publishing
-- **Slack**: Post updates, search discussions, create canvases
-- **Gmail**: Draft stakeholder emails, search feedback
-- **Google Calendar**: Meeting context, scheduling
-- **Granola**: Meeting transcripts for user research analysis
-- **Perplexity** (via n8n): Web research for market sizing
-- **Chrome** (Claude in Chrome + Control Chrome): Web teardown automation
-
-Not yet connected: Amplitude, Mixpanel, Figma, Linear, Notion.
-
-## Implementation Roadmap
-
-The project follows a 6-phase, 22-week plan (see `09-IMPLEMENTATION-ROADMAP.md`):
-- **Phase 0** (Wk 1-2): Plugin scaffold + PRD skill + pm-frameworks MCP
-- **Phase 1** (Wk 3-5): Core skills (prioritize, roadmap, experiment, user-research, stakeholder-update, launch-checklist)
-- **Phase 2** (Wk 6-9): Wire already-connected MCPs into skills; add analytics MCPs
-- **Phase 3** (Wk 10-12): Web teardown engine (Chrome-based competitive research)
-- **Phase 4** (Wk 13-18): App teardown engine (simulator/emulator MCP servers + agent)
-- **Phase 5** (Wk 19-22): Polish, memory, hooks, marketplace distribution
-
-## Key Design Decisions
-
-- **Android emulator is primary** for competitor app teardowns (APKs easier to obtain, no code signing issues, reliable adb interaction)
-- iOS Simulator best for own-app testing and iOS-specific UX patterns
-- Agent navigation uses accessibility trees first, coordinates as fallback
-- Screen deduplication: >80% element overlap = same screen
-- Web teardown: 2-second delay between navigations, max 50 pages per competitor, respect robots.txt
-- Competitive intel cached for 7 days; screenshots cached indefinitely
-- All teardown data persisted in `${CLAUDE_PLUGIN_DATA}/teardowns/`
-
-## PM Frameworks Available via pm-frameworks MCP
-
-Prioritization: RICE, ICE, MoSCoW, Kano, Weighted Scoring, Opportunity Scoring, Cost of Delay (CD3)
-Experimentation: sample_size_calc, significance_test
-Market sizing: tam_sam_som
-
-## Permission Modes for Agents
-
-- `acceptEdits`: app-teardown, web-teardown, prd-writer, ux-reviewer, research-synthesizer
-- `default` (interactive): data-analyst, sprint-analyst
-- Long-running agents (app-teardown, web-teardown) use `background: true` + `isolation: worktree`
 
 ## Build and Development
 
