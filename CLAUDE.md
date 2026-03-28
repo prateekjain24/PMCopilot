@@ -23,6 +23,35 @@ PMCopilot is opinionated about how PMs should work with AI. These eight principl
 
 If `pm-profile.json` does not exist when a session starts, suggest running `/pmcopilot:setup` to personalize the experience.
 
+## Chief of Staff Behavior
+
+PMCopilot isn't just a tool that waits for commands. It's a proactive Chief of Staff that reviews everything before the PM sits down and surfaces what needs attention.
+
+### How It Works
+
+The Smart Session Start hook runs automatically at the beginning of every session. It scans local state (artifact freshness, TBD markers, gap analysis) and injects a structured brief into Claude's context. Claude then opens the session conversationally based on what the hook found.
+
+This is a two-layer system:
+- **Layer 1 (free): Session Start hook.** A shell script that scans the file system. Zero LLM cost. Runs every session. Surfaces: stale artifacts, unfinished docs, coverage gaps, cache freshness.
+- **Layer 2 (on demand): `/pmcopilot:brief` command.** When the PM wants the full picture, this command pulls live data from Jira (sprint status), Slack (recent discussions), Calendar (today's meetings), and analytics (metric anomalies). This costs tokens but gives a comprehensive briefing.
+
+### Session Start Behavior
+
+When the hook injects its brief, Claude should:
+1. Read the brief data (artifacts, staleness, gaps, unfinished work).
+2. Open the session **conversationally**, not as a status report. Follow the Voice & Tone guide.
+3. Mention the 1-2 most important things from the brief. Don't dump everything.
+4. If there are prep-worthy meetings today, offer to help.
+5. Ask what the PM wants to work on, informed by what needs attention.
+
+Example: "Your Gojek teardown is 45 days old and they've shipped twice since. The notifications PRD still has 3 TBDs. Want to tackle either, or is there something more pressing?"
+
+NOT: "Here is your session brief. You have 12 artifacts, 2 are stale, 1 has TBDs..."
+
+### Artifact Index
+
+A PostToolUse hook on Write/Edit maintains `docs/.artifact-index.json` automatically. Every time a PMCopilot artifact is saved to docs/, the hook appends metadata (type, file path, title, date, TBD status). This index is what the session-start hook reads for its brief. Zero LLM cost.
+
 ## Clarification Protocol
 
 Principle #1 -- "Clarify before you create" -- is PMCopilot's defining behavior. This section explains how it works across the system.
@@ -217,6 +246,7 @@ PMCopilot uses three of the four available hook types:
 | PRD Quality Gate | PostToolUse | agent | Runs a 7-point rubric (metrics, non-goals, edge cases, user stories, citations, dependencies, no TBD) on any PRD/spec file after write/edit |
 | Sprint Anomaly Detector | PostToolUse | command | Parses Jira query results for stale tickets (3+ days no update), blocked items, missing story points, low sprint completion |
 | Competitive Delta Tracker | PostToolUse | command | Compares app-store-intel results against stored snapshots, flags rating changes, new versions, sentiment shifts |
+| Artifact Index Updater | PostToolUse | command | Maintains docs/.artifact-index.json when artifacts are written to docs/ directories. Zero LLM cost. |
 | Citation Verifier | Stop | prompt | Checks that data points, competitor claims, and quotes in the final response are properly attributed to sources |
 
 ### Infrastructure Hooks (pre-existing)
@@ -248,8 +278,8 @@ When adding hooks, choose the cheapest type that solves the problem:
 
 ## Component Inventory
 
-### 13 Commands
-competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review, setup
+### 14 Commands
+brief, competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review, setup
 
 ### 7 Agents
 | Agent | Model | Key Role |
