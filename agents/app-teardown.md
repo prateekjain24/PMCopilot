@@ -10,7 +10,7 @@ effort: max
 maxTurns: 50
 permissionMode: acceptEdits
 memory: project
-isolation: worktree
+
 background: true
 ---
 

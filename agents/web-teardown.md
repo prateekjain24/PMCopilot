@@ -11,7 +11,7 @@ maxTurns: 40
 permissionMode: acceptEdits
 memory: project
 background: true
-isolation: worktree
+
 ---
 
 # Web Teardown Agent

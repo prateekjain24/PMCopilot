@@ -18,7 +18,7 @@ effort: high
 maxTurns: 50         # max agentic round-trips before stopping
 permissionMode: acceptEdits  # or "default" for interactive
 memory: true         # persist context across invocations
-isolation: worktree  # run in isolated git worktree
+isolation: worktree  # run in isolated git worktree (optional, requires git repo as CWD)
 background: true     # run as background task
 ---
 
@@ -47,7 +47,7 @@ System prompt and instructions here...
 
 ## Long-Running Agents
 
-app-teardown and web-teardown use `background: true` + `isolation: worktree` because they may run for minutes navigating apps/websites.
+app-teardown and web-teardown use `background: true` because they may run for minutes navigating apps/websites. Note: `isolation: worktree` was removed from these agents because in Cowork mode the session directory is not a git repo. Worktree isolation is only useful for agents that modify source code.
 
 ## Clarification Awareness
 
