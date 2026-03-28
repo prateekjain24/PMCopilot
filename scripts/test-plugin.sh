@@ -102,7 +102,7 @@ section "Commands"
 EXPECTED_COMMANDS=(
   competitive-teardown prd sprint-review market-sizing prioritize
   user-research roadmap experiment stakeholder-update app-store-intel
-  launch-checklist metrics-review setup
+  launch-checklist metrics-review setup brief
 )
 
 COMMAND_COUNT=0

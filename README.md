@@ -47,13 +47,20 @@ If you are using Cowork, PMCopilot is available as a plugin. Install it from the
 
 ### Option B: Claude Code CLI
 
-Clone the repository and load it as a plugin:
+Clone the repository, run the installer, and load it as a plugin:
 
 ```bash
 git clone https://github.com/prateekjain24/PMCopilot.git
 cd PMCopilot
+
+# Smart installer: discovers tools, builds MCP servers, reports your tier
+./scripts/install.sh
+
+# Load the plugin
 claude --plugin-dir .
 ```
+
+The install script handles everything: finds `adb` (even if installed via Homebrew at a non-standard path), checks if `xcrun simctl` is working, offers to install missing tools, builds all 4 MCP servers, and saves an environment snapshot that the setup command reads.
 
 Once loaded, all commands are available as `/pmcopilot:<command>`. For example:
 

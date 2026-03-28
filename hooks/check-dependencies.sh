@@ -1,9 +1,87 @@
 #!/bin/bash
 # PMCopilot Diagnostic: Check all optional dependencies
-# Reports installed/not-installed status with version info for each tool.
+# Reads from cached environment.json (created by scripts/install.sh) if available,
+# otherwise falls back to live detection.
 # Exit 0 always (diagnostic only, never blocks anything)
 
+PLUGIN_DATA="${CLAUDE_PLUGIN_DATA:-$HOME/.claude/plugins/data/pmcopilot}"
+ENV_CACHE="$PLUGIN_DATA/environment.json"
+
 echo "=== PMCopilot Dependency Check ==="
+echo ""
+
+# If install.sh has been run, use cached state
+if [ -f "$ENV_CACHE" ]; then
+  CACHE_AGE_DAYS=0
+  if command -v stat &>/dev/null; then
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      MTIME=$(stat -f %m "$ENV_CACHE" 2>/dev/null || echo "0")
+    else
+      MTIME=$(stat -c %Y "$ENV_CACHE" 2>/dev/null || echo "0")
+    fi
+    NOW=$(date +%s)
+    CACHE_AGE_DAYS=$(( (NOW - MTIME) / 86400 ))
+  fi
+
+  echo "Using cached environment from install.sh (${CACHE_AGE_DAYS}d old)"
+  if [ "$CACHE_AGE_DAYS" -gt 7 ]; then
+    echo "  STALE: Consider re-running ./scripts/install.sh to refresh"
+  fi
+  echo ""
+
+  python3 -c "
+import json
+
+with open('$ENV_CACHE') as f:
+    env = json.load(f)
+
+def status(key, label, detail=''):
+    val = env.get(key, '')
+    if val and val != '0':
+        print(f'[INSTALLED] {label}: {val}')
+    else:
+        print(f'[NOT FOUND] {label}')
+    if detail:
+        print(f'            {detail}')
+
+print('--- Core ---')
+status('node', 'Node.js')
+status('bun', 'Bun')
+print()
+
+print('--- Android ---')
+status('adb', 'adb', env.get('adb_path', ''))
+if env.get('android_home'):
+    print(f'[SET]       ANDROID_HOME: {env[\"android_home\"]}')
+else:
+    print('[NOT SET]   ANDROID_HOME')
+print()
+
+print('--- iOS ---')
+status('simctl', 'simctl')
+if env.get('simulators', '0') != '0':
+    print(f'            Simulators: {env[\"simulators\"]}')
+status('idb', 'idb', env.get('idb_path', ''))
+print()
+
+print('--- Other ---')
+status('chrome', 'Chrome')
+print()
+
+builds_ok = env.get('builds_ok', 0)
+builds_fail = env.get('builds_fail', 0)
+print(f'MCP Servers: {builds_ok} built, {builds_fail} failed')
+print(f'Installed: {env.get(\"installed_at\", \"unknown\")}')
+" 2>/dev/null
+
+  echo ""
+  echo "Re-run ./scripts/install.sh to update."
+  exit 0
+fi
+
+# Fallback: live detection (original behavior)
+echo "No cached environment. Run ./scripts/install.sh for full setup."
+echo "Falling back to live detection..."
 echo ""
 
 # Helper function: check a command and print its status
@@ -35,8 +113,11 @@ echo ""
 check_tool "Python 3" "python3" "python3 --version" \
   "Required for hook scripts (JSON parsing, data processing)"
 
-check_tool "jq" "jq" "jq --version" \
-  "JSON processing (optional, hooks use python3 as fallback)"
+check_tool "Node.js" "node" "node --version" \
+  "Required for MCP servers"
+
+check_tool "Bun" "bun" "bun --version" \
+  "Required to build MCP servers"
 
 # --- iOS Simulator tools ---
 echo "--- iOS Simulator ---"
@@ -56,70 +137,30 @@ if which xcrun > /dev/null 2>&1; then
   fi
 fi
 
+check_tool "idb_companion" "idb_companion" "idb_companion --version" \
+  "Enriched iOS Simulator interaction (optional)"
+
 # --- Android tools ---
-echo "--- Android Emulator ---"
+echo "--- Android ---"
 echo ""
 
-if [ -n "$ANDROID_HOME" ]; then
+if [ -n "${ANDROID_HOME:-}" ]; then
   echo "[SET] ANDROID_HOME = $ANDROID_HOME"
+elif [ -n "${ANDROID_NDK_HOME:-}" ]; then
+  echo "[SET] ANDROID_NDK_HOME = $ANDROID_NDK_HOME (note: this is the NDK, not the SDK)"
 else
   echo "[NOT SET] ANDROID_HOME environment variable"
 fi
 echo ""
 
-check_tool "Android Emulator" "emulator" "emulator -version" \
-  "Android Emulator for competitor app teardowns"
-
-if which emulator > /dev/null 2>&1; then
-  AVD_LIST=$(emulator -list-avds 2>/dev/null)
-  if [ -n "$AVD_LIST" ]; then
-    AVD_COUNT=$(echo "$AVD_LIST" | wc -l | tr -d ' ')
-    echo "           Available AVDs: $AVD_COUNT"
-    echo ""
-  fi
-fi
-
 check_tool "Android Debug Bridge (adb)" "adb" "adb version" \
   "Android device/emulator communication and control"
-
-if which adb > /dev/null 2>&1; then
-  DEVICE_COUNT=$(adb devices 2>/dev/null | tail -n +2 | grep -c "device$" || echo "0")
-  echo "           Connected devices: $DEVICE_COUNT"
-  echo ""
-fi
 
 # --- Summary ---
 echo "=== Summary ==="
 echo ""
-
-MISSING=""
-
-if ! which python3 > /dev/null 2>&1; then
-  MISSING="$MISSING python3"
-fi
-if ! which xcrun > /dev/null 2>&1; then
-  MISSING="$MISSING xcrun"
-fi
-if ! which adb > /dev/null 2>&1; then
-  MISSING="$MISSING adb"
-fi
-if ! which emulator > /dev/null 2>&1; then
-  MISSING="$MISSING emulator"
-fi
-if ! which jq > /dev/null 2>&1; then
-  MISSING="$MISSING jq"
-fi
-
-if [ -z "$MISSING" ]; then
-  echo "All optional dependencies are installed."
-else
-  echo "Missing optional dependencies:$MISSING"
-  echo "PMCopilot will use graceful degradation for features that require these tools."
-fi
-
+echo "For full setup with auto-installation, run: ./scripts/install.sh"
 echo ""
-echo "Note: iOS Simulator and Android Emulator are optional. Skills that require"
-echo "them will fall back to web-only analysis or manual data input when unavailable."
 
 # Always exit 0
 exit 0
