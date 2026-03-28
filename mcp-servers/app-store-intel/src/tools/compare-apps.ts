@@ -114,14 +114,14 @@ export const compareAppsTool = {
     }
 
     // Filter to requested metrics if specified
-    let filteredComparisons: Record<string, unknown>[] = comparisons;
+    let filteredComparisons: Record<string, unknown>[] = comparisons as unknown as Record<string, unknown>[];
     if (metrics && metrics.length > 0) {
       const metricSet = new Set(["store", "app_id", "name", ...metrics]);
       filteredComparisons = comparisons.map((c) => {
         const filtered: Record<string, unknown> = {};
         for (const key of Object.keys(c)) {
           if (metricSet.has(key)) {
-            filtered[key] = (c as Record<string, unknown>)[key];
+            filtered[key] = (c as unknown as Record<string, unknown>)[key];
           }
         }
         return filtered;

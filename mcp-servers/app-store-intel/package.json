@@ -16,6 +16,9 @@
     "fastmcp": "^1.0.0",
     "zod": "^3.23.0"
   },
+  "overrides": {
+    "@modelcontextprotocol/sdk": "1.21.0"
+  },
   "optionalDependencies": {
     "google-play-scraper": "^9.0.0"
   },
