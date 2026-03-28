@@ -2,21 +2,52 @@
 
 AI-powered copilot for Product Managers -- PRD generation, prioritization frameworks, competitive teardowns, sprint analytics, and more.
 
-Built as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin.
+Built as a [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugin. Works with both **Claude Code CLI** and **Cowork** (Claude Desktop).
+
+---
+
+## What You Can Do
+
+### Research and Discovery
+
+- **Competitive Teardown** -- Launch parallel app, web, and market research agents that navigate real apps on simulators/emulators, browse competitor websites via Chrome, and synthesize findings into an 8-section intelligence report.
+- **App Store Intel** -- Pull ratings, reviews, version history, and sentiment analysis from the App Store and Play Store. Compare multiple apps side by side.
+- **Market Sizing** -- Generate TAM/SAM/SOM estimates using top-down and bottom-up methodologies with web research and cross-validation.
+
+### Strategy and Planning
+
+- **PRD Generator** -- Write comprehensive PRDs using Google, Amazon PRFAQ, or Stripe templates. Optionally publishes to Confluence and links to Jira epics.
+- **Prioritize** -- Score features using RICE, ICE, MoSCoW, Kano, or Cost of Delay. Can read directly from your Jira backlog.
+- **Roadmap** -- Generate roadmaps in Now/Next/Later, Timeline, or Outcome-based formats grounded in your backlog and prior prioritization.
+
+### Execution and Measurement
+
+- **Sprint Review** -- Analyze sprint performance with velocity trends, ticket breakdowns, and talking points. Pulls from Jira and correlates with calendar load.
+- **Experiment Design** -- Design rigorous A/B tests with hypothesis formulation, sample size calculation, and rollout planning.
+- **Metrics Review** -- North Star Metric or AARRR Pirate Metrics analysis with data from Amplitude or Mixpanel.
+
+### Communication
+
+- **Stakeholder Update** -- Generate weekly, monthly, or executive summary updates. Post to Slack channels or draft emails via Gmail.
+- **User Research** -- Create personas, interview guides, JTBD canvases, and affinity maps. Synthesize meeting transcripts from Granola.
+- **Launch Checklist** -- Comprehensive launch readiness checklists tailored for soft, hard, or beta launches.
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+### Option A: Cowork (Claude Desktop)
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
-- Node.js 18+ and [Bun](https://bun.sh/) (for building MCP servers)
-- macOS recommended (required for iOS Simulator features)
+If you are using Cowork, PMCopilot is available as a plugin. Install it from the plugin marketplace or load it manually:
 
-### 1. Install the plugin
+1. Open Cowork and go to Settings > Plugins.
+2. Search for "PMCopilot" or point to the plugin directory.
+3. All commands appear under the `/pmcopilot:` namespace.
+4. External integrations (Jira, Slack, Figma, etc.) connect through Cowork's built-in MCP connectors. Go to Settings > Connectors to enable the ones you need.
 
-Clone the repository and load PMCopilot as a Claude Code plugin:
+### Option B: Claude Code CLI
+
+Clone the repository and load it as a plugin:
 
 ```bash
 git clone https://github.com/prateekjain24/PMCopilot.git
@@ -24,109 +55,233 @@ cd PMCopilot
 claude --plugin-dir .
 ```
 
-Once loaded, all PMCopilot skills appear under the `/pmcopilot:` namespace.
-
-### 2. Run your first skill
-
-Generate a PRD for a feature idea:
+Once loaded, all commands are available as `/pmcopilot:<command>`. For example:
 
 ```
-/pmcopilot:prd-generator "User onboarding flow redesign" --template google
-```
-
-Or prioritize a set of features:
-
-```
+/pmcopilot:prd "User onboarding flow redesign" --template google
 /pmcopilot:prioritize rice
 ```
 
-Then type your feature list when prompted. PMCopilot guides you through scoring each feature and produces a ranked output.
+---
 
-### 3. Build the MCP servers (optional)
+## Setup Tiers
 
-The custom MCP servers provide framework calculations, simulator control, and app store data. Build them to enable those features:
+PMCopilot is designed to work at every level of setup. You do not need all integrations to get value -- start with Tier 0 and add capabilities as you need them.
+
+| Tier | What You Need | What You Unlock |
+|------|--------------|-----------------|
+| **0 -- Zero Setup** | Just the plugin | PRD generation, prioritization, roadmaps, experiment design, launch checklists, market sizing (with manual data input) |
+| **1 -- Analytics** | Amplitude or Mixpanel MCP | Metrics review with live data, anomaly detection, retention curves, funnel analysis |
+| **2 -- PM Tools** | Jira, Slack, Gmail, Google Calendar, Granola, Figma MCPs | Sprint review from Jira, stakeholder updates via Slack/Gmail, user research from meeting transcripts, UX review from Figma |
+| **3 -- Mobile Testing** | Xcode (iOS) or Android SDK + built MCP servers | App teardowns on real simulators/emulators, screenshot-driven competitive analysis |
+| **4 -- Full Stack** | Chrome MCP + all of the above | End-to-end competitive teardowns combining app, web, and market research |
+
+---
+
+## Building the Custom MCP Servers
+
+PMCopilot ships with four custom MCP servers that run locally over STDIO transport. Two of these -- simulator-bridge and emulator-bridge -- power the mobile app teardown capabilities and require platform-specific prerequisites. The other two (pm-frameworks, app-store-intel) work on any platform.
+
+### PM Frameworks Server
+
+Provides calculators for RICE, ICE, Kano, MoSCoW, TAM/SAM/SOM, sample size, and statistical significance. No special prerequisites.
 
 ```bash
-# PM Frameworks (RICE, ICE, Kano, MoSCoW, sample size, etc.)
-cd mcp-servers/pm-frameworks && bun install && bun run build && cd ../..
-
-# Simulator Bridge (iOS Simulator control)
-cd mcp-servers/simulator-bridge && bun install && bun run build && cd ../..
-
-# Emulator Bridge (Android Emulator control)
-cd mcp-servers/emulator-bridge && bun install && bun run build && cd ../..
-
-# App Store Intel (App Store + Play Store data)
-cd mcp-servers/app-store-intel && bun install && bun run build && cd ../..
+cd mcp-servers/pm-frameworks
+bun install && bun run build
+cd ../..
 ```
 
-### 4. Connect external integrations (optional)
+### App Store Intel Server
 
-PMCopilot works without any external integrations -- you can always provide data manually. To unlock richer workflows, connect your PM tools:
+Extracts data from the App Store and Google Play Store -- ratings, reviews, version history, and sentiment. No special prerequisites.
 
 ```bash
-# Jira/Confluence (sprint review, PRD publishing)
-# Already available via Claude Code Atlassian MCP -- connect in Claude Code settings
+cd mcp-servers/app-store-intel
+bun install && bun run build
+cd ../..
+```
 
+### Simulator Bridge (iOS)
+
+Wraps `xcrun simctl` and `idb` to give PMCopilot full control over iOS Simulators. This is what powers the `app-teardown` agent when it navigates iOS apps, takes screenshots of every screen, and maps user flows.
+
+**Prerequisites:**
+
+- macOS (required -- iOS Simulator only runs on Mac)
+- Xcode installed with at least one simulator runtime (e.g. iPhone 15, iOS 17)
+- Command Line Tools: run `xcode-select --install` if not already set up
+- [idb](https://fbidb.io/) (optional but recommended for richer interaction): `brew install idb-companion`
+
+**Build:**
+
+```bash
+cd mcp-servers/simulator-bridge
+bun install && bun run build
+cd ../..
+```
+
+**Verify it works:**
+
+```bash
+# Check that Xcode simulators are available
+xcrun simctl list devices available
+
+# You should see at least one device like:
+# iPhone 15 (XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX) (Shutdown)
+```
+
+**What the 15 tools do:**
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+| Simulator lifecycle | `list_simulators`, `boot_simulator`, `shutdown_simulator` | Discover, start, and stop simulator instances |
+| App management | `install_app`, `launch_app`, `terminate_app`, `get_app_container` | Install .app bundles, launch/kill apps, find app data paths |
+| Screen capture | `take_screenshot`, `record_video` | Capture PNG screenshots and record MP4 video of the simulator screen |
+| Input interaction | `tap`, `swipe`, `type_text`, `press_button` | Simulate touch gestures and text entry |
+| Introspection | `get_accessibility_tree`, `open_url` | Read the UI hierarchy for element discovery, open URLs in the simulator |
+
+**How the app-teardown agent uses it:**
+
+When you run `/pmcopilot:competitive-teardown "Notion"`, the `app-teardown` agent boots a simulator, installs the target app, and systematically navigates every screen. It uses `get_accessibility_tree` to discover tappable elements, `tap` and `swipe` to navigate, and `take_screenshot` to capture each screen. The result is a complete visual map of the app's user flows, which the `research-synthesizer` agent then incorporates into the final competitive report.
+
+Screenshots are saved to `~/.claude/plugins/data/pmcopilot/screenshots/ios/`.
+
+### Emulator Bridge (Android)
+
+Wraps `adb` to give PMCopilot control over Android Emulators. Works the same way as the simulator bridge but for Android apps.
+
+**Prerequisites:**
+
+- Android SDK with `ANDROID_HOME` environment variable set (typically `~/Library/Android/sdk` on macOS or `~/Android/Sdk` on Linux)
+- At least one AVD (Android Virtual Device) created via Android Studio or `avdmanager`
+- `adb` available on your PATH (comes with the Android SDK platform-tools)
+
+**Build:**
+
+```bash
+cd mcp-servers/emulator-bridge
+bun install && bun run build
+cd ../..
+```
+
+**Verify it works:**
+
+```bash
+# Check that ANDROID_HOME is set
+echo $ANDROID_HOME
+
+# List available AVDs
+$ANDROID_HOME/emulator/emulator -list-avds
+
+# You should see at least one AVD name like:
+# Pixel_7_API_34
+```
+
+**What the 16 tools do:**
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+| Device management | `list_emulators`, `list_devices`, `start_emulator` | Discover AVDs, list running devices, boot emulators |
+| App management | `install_apk`, `launch_app`, `grant_permission`, `clear_app_data` | Install APKs, launch apps, manage runtime permissions, reset app state |
+| Screen capture | `take_screenshot`, `record_screen` | Capture PNG screenshots and record MP4 video |
+| Input interaction | `tap`, `swipe`, `type_text`, `press_key` | Simulate touch gestures, text entry, and hardware key presses |
+| Introspection | `dump_ui`, `get_current_activity`, `get_logcat` | Read the UI hierarchy, identify the foreground activity, stream device logs |
+
+Screenshots are saved to `~/.claude/plugins/data/pmcopilot/screenshots/android/`.
+
+---
+
+## Connecting External Integrations
+
+All integrations are optional. PMCopilot gracefully degrades when integrations are unavailable -- skills that depend on an integration fall back to manual data input.
+
+### Cowork Users
+
+Cowork manages MCP connectors for you. Go to **Settings > Connectors** and enable the services you use:
+
+- **Jira / Confluence** -- for sprint review, prioritization, PRD publishing
+- **Slack** -- for stakeholder updates, research context
+- **Gmail** -- for email-based stakeholder updates
+- **Google Calendar** -- for meeting load analysis in sprint reviews
+- **Figma** -- for UX review and design references in PRDs
+- **Granola** -- for meeting transcript analysis in user research
+
+No manual configuration is needed. Once a connector is enabled in Cowork, PMCopilot detects and uses it automatically.
+
+### Claude Code CLI Users
+
+Some integrations are built into Claude Code (Jira, Slack, Gmail, Google Calendar, Granola). Check if they are enabled:
+
+```bash
+claude mcp list
+```
+
+For integrations not built in, add them manually:
+
+```bash
 # Amplitude (metrics review)
 claude mcp add -t http Amplitude "https://mcp.amplitude.com/mcp"
 
 # Mixpanel (metrics review)
 claude mcp add -t http Mixpanel "https://mcp.mixpanel.com/mcp"
 
-# Figma (UX review, design references in PRDs)
+# Figma (UX review, design references)
 claude mcp add -t http Figma "https://mcp.figma.com/mcp"
 ```
 
-See the [Integration Setup Guide](docs/integration-setup.md) for step-by-step instructions for all 9 integrations.
+You will be prompted to authenticate via OAuth on first use.
 
-### 5. Example workflows
+See the [Integration Setup Guide](docs/integration-setup.md) for detailed instructions, verification steps, and troubleshooting for all 9 integrations.
 
-**Write a PRD, then prioritize and plan:**
-```
-/pmcopilot:prd-generator "Search improvements"
-/pmcopilot:prioritize rice --from-jira PROJECT_KEY
-/pmcopilot:roadmap now-next-later
-```
+---
 
-**Run a competitive teardown:**
-```
-/pmcopilot:competitive-teardown "Notion" --vs "Our Product" --platform all
-```
-This launches app-teardown, web-teardown, and research-synthesizer agents in parallel, producing an 8-section competitive intelligence report.
-
-**Sprint review to stakeholder update:**
-```
-/pmcopilot:sprint-review current --project PROJ
-/pmcopilot:stakeholder-update weekly --slack-channel #product-updates
-```
-
-**Design and validate an experiment:**
-```
-/pmcopilot:experiment-design "Simplified checkout flow reduces cart abandonment"
-/pmcopilot:metrics-review aarrr --product "E-commerce app"
-```
-
-### 6. Configuration
+## Configuration
 
 PMCopilot reads defaults from `settings.json` in the plugin root:
 
 | Setting | Default | Purpose |
 |---------|---------|---------|
-| `default_prd_template` | `google` | PRD template (google, amazon-prfaq, stripe) |
-| `default_prioritization` | `rice` | Prioritization framework |
-| `default_roadmap_format` | `now-next-later` | Roadmap format |
+| `default_prd_template` | `google` | PRD template: google, amazon-prfaq, stripe |
+| `default_prioritization` | `rice` | Default scoring framework |
+| `default_roadmap_format` | `now-next-later` | Roadmap layout |
 | `analytics_platform` | `amplitude` | Preferred analytics backend |
 | `jira_project_key` | (empty) | Default Jira project for sprint data |
-| `competitive_intel_cache_days` | `7` | Days to cache competitive data |
+| `figma_team_id` | (empty) | Default Figma team for design references |
+| `competitive_intel_cache_days` | `7` | Days to cache competitive research data |
+| `preferred_frameworks` | `[rice, moscow, kano]` | Frameworks shown first in prioritization |
 
 Edit `settings.json` to customize for your team.
 
 ---
 
-## Commands
+## Architecture
 
-PMCopilot ships with 12 user-facing commands, each invoked as a slash command.
+PMCopilot follows a stacking pattern where commands orchestrate agents, and agents use MCP tools:
+
+```
+/pmcopilot:competitive-teardown "Grab vs Gojek"
+  -> competitive-teardown skill (orchestrator)
+    -> app-teardown agent (parallel) -> simulator-bridge MCP -> xcrun simctl
+    -> web-teardown agent (parallel) -> Chrome MCP -> browser automation
+    -> app-store-intel MCP -> App Store / Play Store APIs
+  -> research-synthesizer agent -> unified 8-section report
+```
+
+```
+/pmcopilot:sprint-review "current sprint"
+  -> sprint-review skill -> sprint-analyst agent
+    -> Jira MCP -> sprint data, velocity, ticket status
+    -> Google Calendar MCP -> meeting load correlation
+    -> Slack MCP -> team discussion context
+  -> formatted review with talking points
+```
+
+---
+
+## Reference
+
+### Commands (12)
 
 | Command | Description |
 |---------|-------------|
@@ -143,27 +298,19 @@ PMCopilot ships with 12 user-facing commands, each invoked as a slash command.
 | `/pmcopilot:launch-checklist` | Launch readiness checklists for soft, hard, or beta launches |
 | `/pmcopilot:metrics-review` | North Star Metric or AARRR Pirate Metrics analysis |
 
----
+### Agents (7)
 
-## Agents
+| Agent | Model | Role |
+|-------|-------|------|
+| prd-writer | Opus | Write comprehensive PRDs following best-practice templates |
+| sprint-analyst | Sonnet | Analyze Jira sprint data, compute velocity, identify risks |
+| data-analyst | Sonnet | Query analytics platforms, build funnels, detect anomalies |
+| research-synthesizer | Opus | Orchestrate competitive research across multiple agents |
+| app-teardown | Opus | Navigate mobile apps on simulators/emulators, capture every screen |
+| web-teardown | Opus | Browse competitor websites via Chrome automation |
+| ux-reviewer | Opus | Evaluate UI designs against Nielsen usability heuristics |
 
-Seven autonomous agents handle specialized tasks on behalf of skills.
-
-| Agent | Model | Role | Memory |
-|-------|-------|------|--------|
-| prd-writer | Opus | Write comprehensive PRDs | Project |
-| sprint-analyst | Sonnet | Analyze Jira sprint data and velocity | Project |
-| data-analyst | Sonnet | Query analytics, build funnels, detect anomalies | -- |
-| research-synthesizer | Opus | Orchestrate competitive research | Project |
-| app-teardown | Opus | Navigate mobile apps on simulators/emulators | Project |
-| web-teardown | Opus | Browse competitor websites via Chrome | Project |
-| ux-reviewer | Opus | Evaluate UX against Nielsen heuristics | -- |
-
----
-
-## Custom MCP Servers
-
-Four TypeScript MCP servers ship with the plugin and run over STDIO transport.
+### Custom MCP Servers (4)
 
 | Server | Tools | Purpose |
 |--------|-------|---------|
@@ -172,35 +319,73 @@ Four TypeScript MCP servers ship with the plugin and run over STDIO transport.
 | emulator-bridge | 16 | Android Emulator control via adb |
 | app-store-intel | 10 | App Store + Play Store data extraction |
 
+### External Integrations (9)
+
+| Integration | Used By | Transport |
+|-------------|---------|-----------|
+| Jira / Confluence | Sprint review, Prioritize, PRD | SSE |
+| Slack | Stakeholder update, Research synthesizer | HTTP |
+| Gmail | Stakeholder update | HTTP |
+| Google Calendar | Sprint review | HTTP |
+| Figma | UX reviewer, PRD | HTTP |
+| Granola | User research | HTTP |
+| Amplitude | Metrics review | HTTP |
+| Mixpanel | Metrics review | HTTP |
+| Chrome | Web teardown, Competitive teardown | Local |
+
 ---
 
-## Integration Matrix
+## Example Workflows
 
-PMCopilot connects to external tools through Claude Code MCP integrations. **All integrations are optional.** PMCopilot works in local-only mode with manual data input when integrations are unavailable.
+**Write a PRD, then prioritize and plan:**
 
-| Integration | Used By | Required |
-|-------------|---------|----------|
-| Jira/Confluence | Sprint review, Prioritize, PRD | Optional |
-| Slack | Stakeholder update, Research synthesizer | Optional |
-| Amplitude | Metrics review | Optional |
-| Mixpanel | Metrics review | Optional |
-| Figma | UX reviewer, PRD | Optional |
-| Granola | User research | Optional |
-| Gmail | Stakeholder update | Optional |
-| Google Calendar | Sprint review | Optional |
+```
+/pmcopilot:prd "Search improvements" --template google
+/pmcopilot:prioritize rice --from-jira PROJECT_KEY
+/pmcopilot:roadmap now-next-later
+```
+
+**Run a full competitive teardown:**
+
+```
+/pmcopilot:competitive-teardown "Notion" --vs "Our Product" --platform all
+```
+
+This launches app-teardown, web-teardown, and research-synthesizer agents in parallel, producing an 8-section competitive intelligence report.
+
+**Sprint review to stakeholder update:**
+
+```
+/pmcopilot:sprint-review current --project PROJ
+/pmcopilot:stakeholder-update weekly --slack-channel #product-updates
+```
+
+**Design and validate an experiment:**
+
+```
+/pmcopilot:experiment "Simplified checkout flow reduces cart abandonment"
+/pmcopilot:metrics-review aarrr --product "E-commerce app"
+```
 
 ---
 
 ## Requirements
 
-- Claude Code 2.1+
-- macOS (iOS Simulator features require Xcode)
-- Android SDK (Android Emulator features require `ANDROID_HOME`)
+- Claude Code 2.1+ (CLI) or Cowork with plugin support
+- Node.js 18+ and [Bun](https://bun.sh/) (for building MCP servers)
+- macOS required for iOS Simulator features (Xcode + simulator runtimes)
+- Android SDK required for Android Emulator features (`ANDROID_HOME` must be set)
 
 ---
 
 ## Documentation
 
-- [Integration Setup Guide](docs/integration-setup.md)
-- [Troubleshooting Guide](docs/troubleshooting.md)
-- [Agent Memory Documentation](docs/agent-memory.md)
+- [Integration Setup Guide](docs/integration-setup.md) -- step-by-step setup, verification, and troubleshooting for all 9 integrations
+- [Troubleshooting Guide](docs/troubleshooting.md) -- common issues and fixes for plugin loading, MCP servers, simulators, and agents
+- [Agent Memory Documentation](docs/agent-memory.md) -- how agents persist context across sessions
+
+---
+
+## License
+
+MIT
