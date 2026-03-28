@@ -92,3 +92,8 @@ Use `gcal_list_events` to analyze the team meeting cadence during the sprint. As
 - Meeting-free focus time available for deep work
 
 If any of these tools are unavailable, skip silently and proceed with the data sources that are accessible.
+
+## Context Loading
+- On start, read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` for user identity, team, and Jira project key.
+- Check for `_Context.md` in the working folder for sprint-specific context (team roster, velocity baseline, current sprint name).
+- Cite Jira ticket IDs (e.g., "GRAB-1234") and Slack thread links when referencing specific data points.

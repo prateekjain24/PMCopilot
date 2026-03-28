@@ -194,3 +194,8 @@ If you approach the maxTurns limit before completing the full teardown:
 ## Memory
 
 Use project memory to track which apps have been previously analyzed. When re-analyzing an app, note changes since the last teardown (new screens, removed features, UI updates, version differences).
+
+## Context Loading
+- On start, read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` for user context (company, products owned -- useful for framing competitive comparison).
+- Check for `_Context.md` in the working folder for competitor app IDs, prior teardown references, and tracking cadence.
+- Cite the specific screen or flow when referencing findings (e.g., "Onboarding screen 3 -- permissions request").

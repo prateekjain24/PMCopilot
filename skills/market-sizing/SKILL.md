@@ -77,3 +77,11 @@ Load the template from `templates/tam-sam-som.md` and populate it with:
 - **Handle limited data honestly.** If reliable data is scarce, say so. Use triangulation (multiple weak signals) rather than fabricating precision. Flag where the user should invest in primary research.
 - **Prefer recent data.** Data older than 2 years should be flagged and adjusted for known trends.
 - **Make assumptions explicit.** Every assumption should be stated, justified, and marked as adjustable so the user can run sensitivities.
+
+## Execution Protocol
+
+1. **Context first.** Read `_Context.md` in the working folder if it exists. Respect its read/skip directives -- do not read files it tells you to skip.
+2. **Profile first.** Read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` if it exists. Use the user's name, role, company, and output preferences to tailor the output.
+3. **Plan before execution.** Present a short plan (sources you will read, structure of the deliverable, key assumptions) and wait for the user to approve before producing the artifact.
+4. **Cite sources.** When synthesizing across documents, cite the source filename for every claim (e.g., "per roadmap-h1.md" or "from GRAB-1234").
+5. **Accumulate knowledge.** If prior outputs from this skill exist in the folder, reference them. Show what changed rather than starting from scratch.

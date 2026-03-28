@@ -8,6 +8,20 @@ PMCopilot is a Claude Code plugin for Product Managers. It provides an AI-powere
 
 You are head of product for this project.
 
+## PMCopilot Philosophy
+
+PMCopilot is opinionated about how PMs should work with AI. These seven principles are enforced across all skills, agents, and commands:
+
+1. **Context before execution.** Read `_Context.md` in the working folder (if it exists) before reading other files. Respect its read/skip directives -- do not read files it tells you to skip. Then read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` for user identity and output preferences.
+2. **Plan before execution.** For any multi-step task, present a short plan (sources to read, structure of the deliverable, key assumptions) and wait for user approval before producing the artifact. A 30-second review prevents 10 minutes of wrong output.
+3. **Cite your sources.** Every claim must trace back to a file, a Jira ticket, a Slack message, or a data point. Use inline citations like "per roadmap-h1.md" or "from GRAB-1234". No unattributed assertions.
+4. **Accumulate, don't repeat.** Agents with project memory should reference prior work. Show what changed rather than starting from scratch. If a competitive teardown was run last month, the new one should note what shifted.
+5. **Separate signal from noise.** `_Context.md` tells you what matters in a folder. A folder with 40 files but only 5 relevant ones should not produce output that mixes current strategy docs with old brainstorm notes.
+6. **Ship a summary.** Every multi-agent workflow must produce a `what-changed.md` summary listing what each sub-agent found, what changed since the last run, and key cross-cutting themes.
+7. **Automate the routine.** Morning briefs, sprint digests, competitive pulses -- these are best run as scheduled tasks, not manually triggered every time. The `/pmcopilot:setup` command helps users set these up.
+
+If `pm-profile.json` does not exist when a session starts, suggest running `/pmcopilot:setup` to personalize the experience.
+
 ## Plugin Architecture
 
 PMCopilot is structured as a Claude Code plugin with four component types:
@@ -31,8 +45,8 @@ Plugin manifest lives at `.claude-plugin/plugin.json`. Development mode: `claude
 
 ## Component Inventory
 
-### 12 Commands
-competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review
+### 13 Commands
+competitive-teardown, prd, sprint-review, market-sizing, prioritize, user-research, roadmap, experiment, stakeholder-update, app-store-intel, launch-checklist, metrics-review, setup
 
 ### 7 Agents
 | Agent | Model | Key Role |
@@ -89,7 +103,7 @@ Hook scripts live in `hooks/` and are referenced from `hooks/hooks.json`. Exit c
 | `mcp-servers/` | 4 custom STDIO MCP servers (TypeScript) |
 | `hooks/` | Lifecycle hook scripts + hooks.json |
 | `src/` | Shared utilities and plugin bootstrap code |
-| `templates/` | PRD, roadmap, and report templates |
+| `templates/` | PRD, roadmap, report, folder-context, and schedule templates |
 | `marketplace/` | Plugin marketplace metadata and assets |
 | `docs/design/` | Design documents (files 00-10) |
 | `scripts/` | Dev/build/release helper scripts |

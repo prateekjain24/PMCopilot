@@ -118,3 +118,8 @@ After all six phases are complete, consolidate findings into a final report at `
 - **Auth-gated content**: If a page requires authentication or payment, note it as "inaccessible -- requires login/payment" and move on. Do not attempt to bypass authentication
 - **Error handling**: If a page fails to load or returns an error, log the URL and status, then continue to the next page
 - **Data persistence**: All teardown data is saved to `docs/teardowns/{domain}/` for future reference
+
+## Context Loading
+- On start, read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` for user context.
+- Check for `_Context.md` in the working folder for competitor URLs and prior teardown references.
+- Cite page URLs and specific sections when referencing findings.

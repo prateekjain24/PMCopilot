@@ -145,3 +145,11 @@ This skill works best with the app-store-intel MCP server connected but function
 - **app-store-intel MCP unavailable**: The skill prompts the user to provide app metadata, ratings, and reviews manually. The user can paste data from App Store or Google Play web pages, or provide a CSV export.
 - **App not found on one platform**: Analysis proceeds with the platform where the app is available. The missing platform is noted in the report with a clear gap marker.
 - All fallbacks prompt the user for manual input with clear instructions.
+
+## Execution Protocol
+
+1. **Context first.** Read `_Context.md` in the working folder if it exists. Respect its read/skip directives -- do not read files it tells you to skip.
+2. **Profile first.** Read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` if it exists. Use the user's name, role, company, and output preferences to tailor the output.
+3. **Plan before execution.** Present a short plan (sources you will read, structure of the deliverable, key assumptions) and wait for the user to approve before producing the artifact.
+4. **Cite sources.** When synthesizing across documents, cite the source filename for every claim (e.g., "per roadmap-h1.md" or "from GRAB-1234").
+5. **Accumulate knowledge.** If prior outputs from this skill exist in the folder, reference them. Show what changed rather than starting from scratch.

@@ -30,12 +30,29 @@ if [ -z "$FILE_PATH" ]; then
   exit 0
 fi
 
-# Check if the filename matches PRD patterns
+# EARLY EXIT: Exclude plugin infrastructure files
+# Only validate actual PRD output documents in workspace directories
+# Exclude: agents/, commands/, hooks/, skills/, mcp-servers/, src/, templates/, marketplace/, docs/, scripts/
+if echo "$FILE_PATH" | grep -qE '/(agents|commands|hooks|skills|mcp-servers|src|templates|marketplace|docs|scripts)/'; then
+  exit 0
+fi
+
+# Exclude common config file extensions
+if echo "$FILE_PATH" | grep -qE '\.(sh|json|yaml|yml|config|lock)$'; then
+  exit 0
+fi
+
+# Check if the filename matches PRD output patterns
+# Only match files actually named for PRD outputs, not agent/command config files
 BASENAME=$(basename "$FILE_PATH" | tr '[:upper:]' '[:lower:]')
 
 case "$BASENAME" in
   *prd* | *product-requirements* | *product_requirements*)
-    # This is a PRD file -- proceed with validation
+    # Additional check: exclude files ending in -writer, -agent, -config
+    if echo "$BASENAME" | grep -qE '(-writer|-agent|-config)\.md$'; then
+      exit 0
+    fi
+    # This is likely a PRD output file -- proceed with validation
     ;;
   *)
     # Not a PRD file -- allow silently

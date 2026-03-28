@@ -323,10 +323,11 @@ PMCopilot follows a stacking pattern where commands orchestrate agents, and agen
 
 ## Reference
 
-### Commands (12)
+### Commands (13)
 
 | Command | Description |
 |---------|-------------|
+| `/pmcopilot:setup` | First-run onboarding wizard -- creates PM profile, scaffolds folder context, sets up scheduled tasks |
 | `/pmcopilot:prd` | Generate PRDs in Google, Amazon PRFAQ, or Stripe formats |
 | `/pmcopilot:prioritize` | Score features using RICE, ICE, MoSCoW, Kano, or Cost of Delay |
 | `/pmcopilot:roadmap` | Generate roadmaps in Now/Next/Later or outcome-based format |
@@ -374,6 +375,90 @@ PMCopilot follows a stacking pattern where commands orchestrate agents, and agen
 | Amplitude | Metrics review | HTTP |
 | Mixpanel | Metrics review | HTTP |
 | Chrome | Web teardown, Competitive teardown | Local |
+
+---
+
+## Getting the Most Out of PMCopilot
+
+PMCopilot works out of the box, but it works significantly better when it knows who you are and what you are working on. The difference between generic outputs and outputs that feel like they came from a teammate who knows your context is about 5 minutes of one-time setup plus a few small habits.
+
+### Run `/pmcopilot:setup` First
+
+This is the single most important thing you can do. The setup command walks you through creating your PM profile, scaffolding a context file for your working folder, detecting connected integrations, and optionally installing recurring scheduled tasks. It takes about 5 minutes.
+
+What it creates:
+
+- **pm-profile.json** -- your identity, role, company, products you own, output preferences. Stored permanently. Every skill and agent reads this to tailor outputs to you.
+- **_Context.md** -- a folder-level context file (see below).
+- **Scheduled tasks** (optional) -- morning brief, EOD brief, weekly rollup, competitive pulse, sprint digest.
+
+### Put a _Context.md in Every Working Folder
+
+The underscore prefix pushes it to the top of the file list so PMCopilot picks it up first. Inside, list which files in the folder are the source of truth and which to skip. This matters because PMCopilot will try to read everything in the folder. If you have 40 files but only 5 are relevant, you end up with bloated outputs that mix current strategy docs with old brainstorm notes.
+
+A typical `_Context.md`:
+
+```markdown
+# Context
+
+## Read these first
+- product-roadmap-h1.md
+- project-brief.md
+
+## Skip these
+- old-drafts/
+- archive/
+- meeting-notes-jan.md (outdated)
+```
+
+PMCopilot ships with 5 starter templates for common workstreams: general, product launch, competitive research, sprint planning, and strategic planning. The setup command offers these during onboarding, or you can find them in `templates/folder-context/`.
+
+### Plan-First is Enforced
+
+Every PMCopilot skill will present a plan before executing multi-step work. The plan lists which files it intends to read, what the deliverable will look like, and what assumptions it is making. You review it in 30 seconds and approve, adjust, or redirect before it spends real effort. This prevents the "10 minutes of wrong output" problem.
+
+### Source Citations are Automatic
+
+All skills and agents cite their sources inline. When a PRD references competitive data, it says where that data came from (e.g., "per competitive-teardown-2026-03.md"). When a sprint review flags a risk, it includes the Jira ticket ID. You can always trace a claim back to its origin.
+
+### Agent Memory Builds Over Time
+
+Five of PMCopilot's seven agents have persistent project memory. The first time you run a competitive teardown, you get a snapshot. The second time, the agents remember what they found before and highlight what changed. Over multiple runs, this builds cumulative intelligence -- pricing trend shifts, feature additions, rating trajectories -- that a single analysis cannot provide.
+
+Agents with memory: app-teardown, web-teardown, research-synthesizer, prd-writer, sprint-analyst.
+
+### Automate the Routine with /schedule
+
+PMCopilot ships with 5 ready-to-use schedule templates:
+
+| Task | Cadence | What It Does |
+|------|---------|-------------|
+| Morning Brief | Weekdays, 8:30 AM | Pulls unread emails, today's calendar, overnight Slack. Produces a single-page summary with action items. |
+| EOD Brief | Weekdays, 6 PM | Summarizes the day across email, Slack, calendar. Highlights unresolved items and drafts follow-ups. |
+| Weekly Rollup | Friday, 5 PM | Full week synthesis -- decisions made, open items, Monday priorities. |
+| Competitive Pulse | Monday, 9 AM | Re-checks app store data for tracked competitors. Flags rating changes, new versions, sentiment shifts. |
+| Sprint Digest | Weekdays, 9 AM | Pulls Jira sprint progress, highlights blockers, flags at-risk tickets. |
+
+The setup command offers to install these. You can also install them later via `/schedule`.
+
+One caveat: scheduled tasks only run while your computer is awake and Claude Desktop (Cowork) is open.
+
+### Recommended Global Instructions
+
+After running setup, PMCopilot suggests a block of global instructions you can paste into your Cowork or Claude Code settings. These apply to every session, so you never have to re-explain who you are or how you like outputs. A typical set:
+
+```
+My name is [Name]. I am [Role] at [Company].
+Check _Context.md first before starting any task.
+Always share a plan before execution.
+Be concise. Use simple English.
+Use tables when comparing options.
+Cite filenames when synthesizing across documents.
+```
+
+### Layer Folder Instructions for Multi-Project Work
+
+Global instructions handle who you are. Folder instructions (via _Context.md) handle what you are working on right now. When you switch projects, switch folders. The project context stays contained instead of leaking across workstreams.
 
 ---
 

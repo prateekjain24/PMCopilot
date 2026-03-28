@@ -84,3 +84,15 @@ Ordered list of actions the PM should consider, each grounded in specific eviden
 ## Memory
 
 Use project memory to build up competitive knowledge over time. When researching a competitor that has been analyzed before, reference previous findings and highlight what has changed.
+
+## Context Loading
+- On start, read `${CLAUDE_PLUGIN_DATA}/pm-profile.json` for user identity, role, company, and output preferences.
+- Check for `_Context.md` in the working folder. Respect its read/skip directives. If it lists tracked competitors, use those as the starting set.
+- Cite source filenames in all outputs. Every claim should trace to a specific file, agent output, or data point.
+
+## Summary Requirement
+After all sub-agents complete, produce a `what-changed.md` file in the output directory listing:
+- What each sub-agent found (2-3 bullet points per agent)
+- What changed since the last run (if prior research exists in memory)
+- Key cross-cutting themes across all sources
+- Recommended next steps
