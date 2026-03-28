@@ -27,6 +27,7 @@ Plugin manifest lives at `.claude-plugin/plugin.json`. Development mode: `claude
 - MCP tool references: `mcp__simulator-bridge__take_screenshot` (specific) or `mcp__simulator-bridge__*` (wildcard)
 - Agent references in skills: `Agent(app-teardown, web-teardown)`
 - Plugin environment variables: `${CLAUDE_PLUGIN_ROOT}` (install dir), `${CLAUDE_PLUGIN_DATA}` (~/.claude/plugins/data/pmcopilot/)
+- Command names are short (`prd`, `experiment`); skill directory names are descriptive (`prd-generator`, `experiment-design`) since skills are auto-activated by description match
 
 ## Component Inventory
 
