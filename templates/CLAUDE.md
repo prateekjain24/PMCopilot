@@ -10,6 +10,8 @@ Reusable document templates used by commands and agents to generate structured P
 | `roadmap/` | roadmap command | Now/Next/Later, Timeline, Outcome-based roadmap layouts |
 | `research/` | user-research command, research-synthesizer agent | Persona cards, interview guides, JTBD canvases, affinity maps |
 | `communication/` | stakeholder-update command | Weekly, monthly, and executive summary update formats |
+| `folder-context/` | setup command | `_Context.md` templates for different PM workflows (competitive research, sprint planning, etc.) |
+| `schedules/` | setup command | Scheduled task templates (morning brief, sprint digest, competitive pulse, etc.) |
 
 ## Conventions
 

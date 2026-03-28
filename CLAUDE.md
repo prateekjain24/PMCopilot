@@ -97,7 +97,7 @@ Hook scripts live in `hooks/` and are referenced from `hooks/hooks.json`. Exit c
 
 | Directory | Contents |
 |-----------|----------|
-| `commands/` | 12 slash-command Markdown files |
+| `commands/` | 13 slash-command Markdown files |
 | `agents/` | 7 agent system-prompt Markdown files |
 | `skills/` | Background skills (each in its own subdirectory with SKILL.md) |
 | `mcp-servers/` | 4 custom STDIO MCP servers (TypeScript) |

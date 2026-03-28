@@ -15,6 +15,10 @@ Hooks are bash scripts triggered by Claude Code lifecycle events. They automate 
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-simulators.sh"
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-profile.sh"
           }
         ]
       }
@@ -31,15 +35,6 @@ Hooks are bash scripts triggered by Claude Code lifecycle events. They automate 
       }
     ],
     "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate-prd-structure.sh"
-          }
-        ]
-      },
       {
         "matcher": "mcp__simulator-bridge__tap|mcp__simulator-bridge__swipe|mcp__emulator-bridge__tap|mcp__emulator-bridge__swipe",
         "hooks": [
@@ -70,8 +65,8 @@ Hooks are bash scripts triggered by Claude Code lifecycle events. They automate 
 | Event | Script | Purpose |
 |-------|--------|---------|
 | SessionStart | `check-simulators.sh` | Verify iOS Simulator / Android Emulator availability |
+| SessionStart | `check-profile.sh` | Check for pm-profile.json; suggest `/pmcopilot:setup` if missing |
 | PreToolUse | `check-simulator-running.sh` | Block device tools if no simulator/emulator is booted |
-| PostToolUse | `validate-prd-structure.sh` | Validate PRD structure on Write/Edit to PRD files |
 | PostToolUse | `auto-screenshot.sh` | Auto-capture screenshot after tap/swipe actions |
 | SubagentStop | `collect-teardown-results.sh` | Collect and organize teardown data when agents finish |
 

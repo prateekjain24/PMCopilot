@@ -1,6 +1,6 @@
 # Commands Directory
 
-12 user-facing slash commands invoked as `/pmcopilot:<name>`. Each is a Markdown file with YAML frontmatter that orchestrates agents and MCP tools.
+13 user-facing slash commands invoked as `/pmcopilot:<name>`. Each is a Markdown file with YAML frontmatter that orchestrates agents and MCP tools.
 
 ## Frontmatter Fields
 
@@ -33,6 +33,7 @@
 | `app-store-intel` | App store ratings, reviews, version history, and sentiment analysis |
 | `launch-checklist` | Comprehensive categorized launch checklist for soft, hard, or beta launches |
 | `metrics-review` | Review product metrics using North Star or AARRR Pirate Metrics frameworks |
+| `setup` | First-run onboarding wizard: PM profile, folder context, integrations, scheduled tasks |
 
 ## Conventions
 

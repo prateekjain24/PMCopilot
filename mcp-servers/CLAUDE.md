@@ -93,12 +93,16 @@ Tools are namespaced: `mcp__<server-name>__<tool-name>`
 
 ## External HTTP MCP Servers
 
-Three external HTTP MCPs are registered in `.mcp.json` and used by agents:
+Seven external MCP servers are registered in `.mcp.json` and used by commands/agents:
 
-| Server | URL | Used By |
-|--------|-----|---------|
-| amplitude | `https://mcp.amplitude.com/mcp` | data-analyst agent |
-| mixpanel | `https://mcp.mixpanel.com/mcp` | data-analyst agent |
-| figma | `https://mcp.figma.com/mcp` | prd command, ux-reviewer agent |
+| Server | Type | Used By |
+|--------|------|---------|
+| atlassian | SSE | sprint-review, prioritize, prd (Jira + Confluence) |
+| slack | HTTP | stakeholder-update, research-synthesizer |
+| gmail | HTTP | stakeholder-update |
+| google-calendar | HTTP | sprint-review |
+| granola | HTTP | user-research |
+| figma | HTTP | prd command, ux-reviewer agent |
+| mixpanel | HTTP | data-analyst agent |
 
 Reference: `docs/design/02-MCP-SERVERS.md`
