@@ -321,6 +321,52 @@ PMCopilot follows a stacking pattern where commands orchestrate agents, and agen
 
 ---
 
+## Hooks: The Invisible Quality Layer
+
+PMCopilot includes 7 lifecycle hooks that run automatically in the background. They don't do the work -- skills and agents do the work. Hooks catch problems, enrich context, and enforce quality standards without you having to ask. Think of them as an invisible chief of staff reviewing everything before it goes out.
+
+### Session Intelligence
+
+**Smart Session Start** fires at the beginning of every session. It loads your PM profile, reads the folder's _Context.md, checks for stale competitive data or sprint files, and surfaces unfinished work from your last session. The result is injected into Claude's context so every session opens informed rather than blank.
+
+### Quality Gates
+
+Three hooks act as quality gates on your outputs:
+
+**PRD Quality Gate** fires after any PRD, spec, or requirements document is written. A subagent reads the document and checks it against a rubric: metrics with baselines and targets, non-goals, edge cases, data citations, no TBD placeholders. If gaps are found, Claude auto-fixes the document before presenting it to you.
+
+**Communication Tone Check** fires before any Slack message or Gmail draft is sent. It checks for a clear ask, appropriate tone, conciseness, and sufficient context for the recipient. If a critical issue is found (wrong audience, missing context), it blocks and suggests a fix.
+
+**Jira Ticket Quality Gate** fires before any Jira ticket is created. It checks for acceptance criteria, specific scope, story points (on stories/tasks), and appropriate issue type. Prevents underspecified tickets from reaching the backlog.
+
+### Intelligence Enrichment
+
+Two hooks automatically enrich data as it flows through PMCopilot:
+
+**Sprint Anomaly Detector** fires after any Jira JQL query. It scans the results for tickets stale for 3+ days, blocked items, missing story points, high-priority open items, and low sprint completion rates. Anomalies appear as inline warnings so you catch problems in real-time rather than at the sprint review.
+
+**Competitive Delta Tracker** fires after any app-store-intel call. It compares the current result with the last snapshot for the same app and flags changes: rating shifts, new reviews, version bumps, sentiment movement. Every competitive check becomes automatically longitudinal.
+
+### Verification
+
+**Citation Verifier** fires when Claude finishes a substantial response. It checks whether factual claims (numbers, competitor data, user behavior assertions) are cited with their source. Uncited claims get flagged, and Claude adds references before showing you the final output.
+
+### Hook Cost
+
+| Hook | Type | LLM Cost | When It Fires |
+|------|------|----------|---------------|
+| Smart Session Start | command | None | Once per session |
+| PRD Quality Gate | agent | 1 call | Only when writing PRD/spec files |
+| Communication Tone Check | prompt | 1 call | Only when sending Slack/email |
+| Jira Ticket Quality Gate | prompt | 1 call | Only when creating tickets |
+| Sprint Anomaly Detector | command | None | Only when querying Jira |
+| Competitive Delta Tracker | command | None | Only when using app-store-intel |
+| Citation Verifier | prompt | 1 call | Every substantial response |
+
+Three of the seven hooks (session start, sprint anomaly, competitive delta) use zero LLM calls -- they are pure shell scripts. The other four use one LLM call each and only fire on specific actions. In a typical session you'll see 0-3 extra LLM calls total.
+
+---
+
 ## Reference
 
 ### Commands (13)

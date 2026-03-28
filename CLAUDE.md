@@ -30,9 +30,51 @@ PMCopilot is structured as a Claude Code plugin with four component types:
 - **Skills** (`skills/<name>/SKILL.md`): Background knowledge auto-activated by Claude based on description match. Use YAML frontmatter with `name`, `description`, `allowed-tools`.
 - **Agents** (`agents/<name>.md`): Autonomous subagents with their own system prompts. Use YAML frontmatter with `tools` (not `allowed-tools`), `maxTurns`, `permissionMode`, `memory`, `isolation`, `background`.
 - **MCP Servers** (`mcp-servers/<name>/`): TypeScript + Node.js servers (STDIO transport) registered in `.mcp.json`. Tools namespaced as `mcp__<server>__<tool>` with wildcard `mcp__<server>__*`.
-- **Hooks** (`hooks/hooks.json`): Lifecycle hooks (SessionStart, PreToolUse, PostToolUse, SubagentStop) for validation and automation.
+- **Hooks** (`hooks/hooks.json`): Lifecycle hooks that fire automatically at key moments (SessionStart, PreToolUse, PostToolUse, Stop, SubagentStop) to enforce quality and surface insights without user action.
 
 Plugin manifest lives at `.claude-plugin/plugin.json`. Development mode: `claude --plugin-dir .` (from repo root).
+
+## Hooks Architecture
+
+Hooks are PMCopilot's invisible quality layer. They fire automatically at lifecycle events, catching problems before they ship and surfacing insights the PM would otherwise miss. All hooks are configured in `hooks/hooks.json`.
+
+### Hook Types
+
+PMCopilot uses three of the four available hook types:
+
+- **command**: A shell script. Zero LLM cost. Best for data processing, file checks, and snapshot comparisons. Exit code 0 = allow, 2 = block (reason on stderr). Stdout text is injected into Claude's context for SessionStart hooks.
+- **prompt**: A single-turn LLM call. Low cost (~0.001-0.003 per fire). Best for judgment calls like tone checking or quality gating. Must respond with `{"ok": true}` or `{"ok": false, "reason": "..."}`.
+- **agent**: A multi-turn subagent with Read, Grep, Glob tools. Higher cost but can read and analyze files. Best for complex verification like PRD rubric checks. Uses `if` field for fine-grained filtering (e.g., `Write(*prd*)|Edit(*prd*)`).
+
+### 7 PM-Value Hooks
+
+| Hook | Event | Type | What It Does |
+|------|-------|------|-------------|
+| Smart Session Start | SessionStart | command | Injects PM profile, folder context, stale data warnings, and unfinished work into session context |
+| Communication Tone Check | PreToolUse | prompt | Reviews outbound Slack/email messages for clarity, tone, conciseness, and actionability before sending |
+| Jira Ticket Quality Gate | PreToolUse | prompt | Validates acceptance criteria, scope clarity, story points, and issue type before creating tickets |
+| PRD Quality Gate | PostToolUse | agent | Runs a 7-point rubric (metrics, non-goals, edge cases, user stories, citations, dependencies, no TBD) on any PRD/spec file after write/edit |
+| Sprint Anomaly Detector | PostToolUse | command | Parses Jira query results for stale tickets (3+ days no update), blocked items, missing story points, low sprint completion |
+| Competitive Delta Tracker | PostToolUse | command | Compares app-store-intel results against stored snapshots, flags rating changes, new versions, sentiment shifts |
+| Citation Verifier | Stop | prompt | Checks that data points, competitor claims, and quotes in the final response are properly attributed to sources |
+
+### Infrastructure Hooks (pre-existing)
+
+- **check-simulators.sh** (SessionStart/command): Detects available iOS Simulators and Android Emulators
+- **check-simulator-running.sh** (PreToolUse/command): Ensures a simulator/emulator is running before bridge tool calls
+- **auto-screenshot.sh** (PostToolUse/command): Captures screenshot after tap/swipe actions during app teardowns
+- **collect-teardown-results.sh** (SubagentStop/command): Collects output from app-teardown and web-teardown agents
+
+### Hook Data Flow
+
+All hooks receive a JSON payload on stdin containing `session_id`, `transcript_path`, `cwd`, and (for tool hooks) `tool_name`, `tool_input`, `tool_response`. Command hooks that write to stdout inject that text into Claude's context. The `matcher` field filters by tool name (supports regex and wildcards). The `if` field on agent hooks adds file-path-level filtering.
+
+### Adding New Hooks
+
+When adding hooks, choose the cheapest type that solves the problem:
+1. Can a shell script do it? Use **command** (zero LLM cost).
+2. Does it need judgment but not file access? Use **prompt** (single LLM call).
+3. Does it need to read and reason about files? Use **agent** (multi-turn, higher cost).
 
 ## Key Naming Conventions
 
@@ -91,7 +133,7 @@ Test plugin loading (from repo root):
 claude --plugin-dir .
 ```
 
-Hook scripts live in `hooks/` and are referenced from `hooks/hooks.json`. Exit code 0 = allow, 2 = block (reason on stderr).
+Hook scripts live in `hooks/` and are referenced from `hooks/hooks.json`. All scripts must be executable (`chmod +x`). Exit code 0 = allow, 2 = block (reason on stderr). Command hooks use `set -euo pipefail` and read JSON from stdin. See the Hooks Architecture section above for the full inventory.
 
 ## Repository Layout
 

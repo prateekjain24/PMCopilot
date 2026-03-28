@@ -9,7 +9,7 @@
           },
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-profile.sh"
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/smart-session-start.sh"
           }
         ]
       }
@@ -23,6 +23,26 @@
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-simulator-running.sh"
           }
         ]
+      },
+      {
+        "matcher": ".*slack_send_message.*|.*slack_schedule_message.*|.*gmail_create_draft.*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a communication quality checker for a Product Manager. Review the following outbound message that is about to be sent via Slack or email.\n\nTool being used: $TOOL_NAME\nMessage details: $TOOL_INPUT\n\nCheck for these issues:\n1. Is there a clear ask or action item? If it is purely informational, is that clear?\n2. Is the tone appropriate for a professional context? Flag anything that could be read as passive-aggressive, dismissive, or unclear.\n3. Is the message concise? Flag if it exceeds 200 words without good reason.\n4. Does it provide enough context for the recipient to act without follow-up questions?\n\nRespond with {\"ok\": true} if the message is ready to send.\nRespond with {\"ok\": false, \"reason\": \"specific suggestion\"} if there is a critical issue that should be fixed before sending.",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": ".*createJiraIssue.*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a backlog quality checker for a Product Manager. Review this Jira ticket that is about to be created.\n\nTicket details: $TOOL_INPUT\n\nCheck for these issues:\n1. Does the description include acceptance criteria or a definition of done?\n2. Is the scope clear and specific? Flag vague descriptions like \"improve X\" or \"fix Y\" without specifics.\n3. Are story points or an estimate provided? (Not required for bugs, required for stories and tasks.)\n4. Is the issue type appropriate for the content?\n\nRespond with {\"ok\": true} if the ticket meets quality standards.\nRespond with {\"ok\": false, \"reason\": \"specific suggestion for what to add\"} if the ticket needs improvement before creation.",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -32,6 +52,46 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/hooks/auto-screenshot.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "agent",
+            "if": "Write(*prd*)|Write(*spec*)|Write(*requirements*)|Edit(*prd*)|Edit(*spec*)|Edit(*requirements*)",
+            "prompt": "You are a PRD quality reviewer. A Product Requirements Document was just written or edited. Read the file and check it against this rubric:\n\n1. **Metrics**: Does every goal have a specific, measurable success metric with a baseline and target? Flag any goal without numbers.\n2. **Non-goals**: Is there a non-goals section with meaningful exclusions (not just filler)? Flag if missing or trivial.\n3. **Edge cases**: Are error states and edge cases addressed? Flag if only the happy path is covered.\n4. **User stories**: Do user stories follow 'As a [persona], I want [action], so that [benefit]' format? Flag malformed stories.\n5. **Data citations**: Are claims backed by data, research, or references? Flag unattributed assertions.\n6. **Dependencies and risks**: Are dependencies identified with owners? Are risks listed with mitigations?\n7. **No TBD/TODO**: Flag any placeholder text like TBD, TODO, or [fill in later].\n\nFile that was just written: $TOOL_INPUT\n\nRead the file, evaluate each rubric item, and return a structured assessment. For any failing items, provide specific suggestions for improvement. The PM should see this feedback before sharing the PRD.",
+            "timeout": 60
+          }
+        ]
+      },
+      {
+        "matcher": ".*searchJiraIssuesUsingJql.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/sprint-anomaly-detector.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__app-store-intel__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/competitive-delta.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "You are a citation verifier for a Product Manager's AI copilot. The PM's assistant just finished producing a response. Check whether factual claims in the response are properly cited.\n\nLook for:\n1. Specific numbers, percentages, or data points -- these MUST cite a source (filename, Jira ticket, Slack thread, or data platform).\n2. Claims about competitors, market data, or user behavior -- these MUST reference where the information came from.\n3. Quotes or paraphrases from documents -- these MUST name the source document.\n\nDo NOT flag:\n- General knowledge or common industry terms\n- The PM's own opinions or recommendations (these don't need citations)\n- Short conversational responses under 500 characters\n- Responses that are purely code, configuration, or instructions\n\nIf the response is a short conversational reply or doesn't contain factual claims, respond {\"ok\": true}.\nIf there are significant uncited claims, respond {\"ok\": false, \"reason\": \"These claims need citations: [list the specific uncited claims and suggest what source they likely came from]\"}.",
+            "timeout": 15
           }
         ]
       }
