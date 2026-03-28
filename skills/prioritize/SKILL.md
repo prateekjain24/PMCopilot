@@ -4,6 +4,14 @@ description: >
   Prioritize a list of features or initiatives using RICE, ICE, MoSCoW,
   Kano, Weighted Scoring, or Cost of Delay frameworks. Reads from
   Jira/Linear backlog or accepts manual input.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - mcp__pm-frameworks__*
+  - searchJiraIssuesUsingJql
 ---
 
 # Feature Prioritization

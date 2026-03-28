@@ -4,6 +4,16 @@ description: >
   Generate a Product Requirements Document (PRD) for a new feature or product.
   Supports multiple templates: Amazon PRFAQ, Google PRD, Stripe PRD, or custom.
   Can incorporate competitive research, user research, and analytics data.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - Agent(prd-writer)
+  - createJiraIssue
+  - createConfluencePage
+  - mcp__figma__*
 ---
 
 # PRD Generator
@@ -69,10 +79,10 @@ Template file: `templates/stripe-prd.md`
 
 6. **Publish options** (optional):
    - `--publish-confluence`: Create a Confluence page with the PRD content using
-     `mcp__claude_ai_Atlassian__createConfluencePage`. Ask the user for the target
+     `createConfluencePage`. Ask the user for the target
      Confluence space key if not specified.
    - `--create-jira`: Create a Jira epic or story for the PRD using
-     `mcp__claude_ai_Atlassian__createJiraIssue`. Link it to the Confluence page
+     `createJiraIssue`. Link it to the Confluence page
      if one was created. Use the PRD title as the issue summary.
    - These options are additive -- the local markdown file is always generated first.
 

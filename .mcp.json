@@ -12,7 +12,7 @@
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/emulator-bridge/dist/index.js"],
       "env": {
-        "ANDROID_HOME": "/Users/$USER/Library/Android/sdk",
+        "ANDROID_HOME": "${ANDROID_HOME}",
         "SCREENSHOT_DIR": "${CLAUDE_PLUGIN_DATA}/screenshots/android",
         "VIDEO_DIR": "${CLAUDE_PLUGIN_DATA}/videos/android"
       }
@@ -29,17 +29,42 @@
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/pm-frameworks/dist/index.js"]
     },
-    "amplitude": {
+    "slack": {
       "type": "http",
-      "url": "https://mcp.amplitude.com/mcp"
+      "url": "https://mcp.slack.com/mcp"
     },
-    "mixpanel": {
+    "atlassian": {
+      "type": "sse",
+      "url": "https://mcp.atlassian.com/v1/sse"
+    },
+    "gmail": {
       "type": "http",
-      "url": "https://mcp.mixpanel.com/mcp"
+      "url": "https://gmail.mcp.claude.com/mcp"
+    },
+    "google-calendar": {
+      "type": "http",
+      "url": "https://gcal.mcp.claude.com/mcp"
+    },
+    "granola": {
+      "type": "http",
+      "url": "https://mcp.granola.ai/mcp"
     },
     "figma": {
       "type": "http",
       "url": "https://mcp.figma.com/mcp"
+    },
+    "mixpanel": {
+      "type": "http",
+      "url": "https://mcp.mixpanel.com/mcp"
     }
-  }
+  },
+  "recommendedCategories": [
+    "project-management",
+    "chat",
+    "calendar",
+    "email",
+    "design-graphics",
+    "analytics-bi",
+    "conversation-intelligence"
+  ]
 }

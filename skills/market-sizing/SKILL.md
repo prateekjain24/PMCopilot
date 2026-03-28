@@ -3,6 +3,13 @@ name: market-sizing
 description: >
   Produce a rigorous TAM/SAM/SOM analysis for a given market or product opportunity
   using top-down and bottom-up methodologies with cross-validation.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - mcp__pm-frameworks__*
 ---
 
 # Market Sizing

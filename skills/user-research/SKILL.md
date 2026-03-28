@@ -3,6 +3,16 @@ name: user-research
 description: >
   Generate user research artifacts including personas, interview guides,
   JTBD canvases, affinity maps, and transcript analysis grounded in real data.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - list_meetings
+  - get_meeting_transcript
+  - get_meetings
+  - query_granola_meetings
 ---
 
 # User Research
@@ -50,8 +60,8 @@ Synthesize qualitative data (interview notes, survey responses, feedback) into a
 
 Analyze a meeting or interview transcript to extract research insights. Integrates with Granola MCP to pull transcripts from recorded meetings.
 
-- Uses `mcp__claude_ai_Granola__list_meetings` to find available transcripts
-- Uses `mcp__claude_ai_Granola__get_meeting_transcript` to retrieve transcript content
+- Uses `list_meetings` to find available transcripts
+- Uses `get_meeting_transcript` to retrieve transcript content
 - Extracts: key quotes, pain points, feature requests, sentiment, and behavioral patterns
 - Produces a structured analysis with actionable takeaways
 
@@ -69,9 +79,9 @@ When analyzing transcripts, the skill automatically identifies participant roles
 ## Process
 
 1. **Clarify the request**: Determine which artifact type the user needs. If not specified, ask.
-   If `--from-granola` is passed, list recent meetings using `mcp__claude_ai_Granola__list_meetings`
+   If `--from-granola` is passed, list recent meetings using `list_meetings`
    and present them to the user for selection. Pull the selected transcript with
-   `mcp__claude_ai_Granola__get_meeting_transcript` and use it as the primary data source.
+   `get_meeting_transcript` and use it as the primary data source.
 2. **Gather context**: Read any provided files, data, or context. For transcript analysis, connect to Granola.
 3. **Research existing materials**: Check for prior research artifacts in the working directory that could inform the new artifact.
 4. **Generate the artifact**: Use the appropriate template from `templates/` and fill it with substantive, specific content.

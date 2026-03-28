@@ -3,6 +3,12 @@ name: launch-checklist
 description: >
   Generate a comprehensive, categorized launch checklist tailored to the launch
   type (hard, soft, or beta) covering engineering, QA, marketing, and rollout.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
 ---
 
 # Launch Checklist

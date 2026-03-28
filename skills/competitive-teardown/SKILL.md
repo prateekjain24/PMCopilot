@@ -5,6 +5,13 @@ description: >
   dispatching app-teardown, web-teardown, and research-synthesizer agents
   in parallel. Produces an 8-section competitive intelligence report with
   feature matrix, UX analysis, SWOT, and strategic recommendations.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - Agent(app-teardown, web-teardown, research-synthesizer)
 ---
 
 # Competitive Teardown

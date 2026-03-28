@@ -3,6 +3,13 @@ name: experiment-design
 description: >
   Design rigorous A/B tests and experiments with statistically sound methodology,
   including hypothesis formulation, sample size calculation, and rollout planning.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - mcp__pm-frameworks__*
 ---
 
 # Experiment Design

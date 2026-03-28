@@ -1,7 +1,7 @@
 ---
 description: "Generate a product roadmap in Now/Next/Later, Timeline, or Outcome-based format"
 argument-hint: "[format: now-next-later|timeline|outcome-based] [--quarters N]"
-allowed-tools: [Read, Write, Bash, Grep, Glob, "mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql"]
+allowed-tools: [Read, Write, Bash, Grep, Glob, "searchJiraIssuesUsingJql"]
 model: sonnet
 ---
 
@@ -39,7 +39,7 @@ Template file: `templates/outcome-based.md`
    - Prior prioritization outputs in `docs/prioritization-*.md`
    - Existing PRDs in `docs/prds/`
    - Competitive teardown reports or market research
-   - Jira backlog items: use `mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql` to pull epics, stories, and their statuses from the active project. Focus on unresolved items with priority or label data.
+   - Jira backlog items: use `searchJiraIssuesUsingJql` to pull epics, stories, and their statuses from the active project. Focus on unresolved items with priority or label data.
    - Any existing roadmap files for continuity
 
 3. **Group into themes**: Organize the gathered initiatives into strategic themes. A theme is a cluster of related work that maps to a user need or business objective. Examples: "Onboarding improvement", "Platform reliability", "Monetization expansion". Aim for 3-7 themes.

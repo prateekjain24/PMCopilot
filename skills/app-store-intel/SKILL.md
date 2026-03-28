@@ -4,6 +4,13 @@ description: >
   Gather app store intelligence for any iOS or Android app. Pull ratings,
   reviews, version history, and sentiment analysis. Supports single-app
   deep dives and multi-app competitive comparisons.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - mcp__app-store-intel__*
 ---
 
 # App Store Intelligence

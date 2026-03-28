@@ -4,6 +4,15 @@ description: >
   Review product metrics using either the North Star Metric framework or
   AARRR Pirate Metrics. Delegates to the data-analyst agent for data pulling,
   identifies anomalies, and produces actionable recommendations.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - Agent(data-analyst)
+  - mcp__amplitude__*
+  - mcp__mixpanel__*
 ---
 
 # Metrics Review

@@ -4,7 +4,7 @@ description: >
   Orchestrate competitive research by coordinating app-teardown, web-teardown,
   and ux-reviewer sub-agents. Synthesize findings from multiple sources into
   a unified research report with cross-cutting themes and actionable insights.
-tools: Read, Write, Bash, Grep, Glob, Agent(app-teardown, web-teardown, ux-reviewer), mcp__claude_ai_Slack__slack_search_public, mcp__claude_ai_Slack__slack_search_public_and_private
+tools: Read, Write, Bash, Grep, Glob, Agent(app-teardown, web-teardown, ux-reviewer), slack_search_public, slack_search_public_and_private
 model: opus
 effort: high
 maxTurns: 30
@@ -41,8 +41,8 @@ Orchestrate specialized research agents, collect their outputs, identify cross-c
 
 When investigating a competitor or market topic, search Slack for relevant internal discussions:
 
-- Use `mcp__claude_ai_Slack__slack_search_public` to search public channels for discussions, decisions, and customer feedback related to the research topic.
-- Use `mcp__claude_ai_Slack__slack_search_public_and_private` for broader searches when authorized, including private channels that may contain sensitive competitive intelligence or customer escalations.
+- Use `slack_search_public` to search public channels for discussions, decisions, and customer feedback related to the research topic.
+- Use `slack_search_public_and_private` for broader searches when authorized, including private channels that may contain sensitive competitive intelligence or customer escalations.
 
 When incorporating Slack findings:
 - Attribute each finding with the channel name and approximate date

@@ -1,7 +1,7 @@
 ---
 description: "Prioritize features using RICE, ICE, MoSCoW, Kano, Weighted Scoring, or Cost of Delay"
 argument-hint: "[framework: rice|ice|moscow|kano|weighted|cod] [--from-jira PROJECT_KEY]"
-allowed-tools: [Read, Write, Bash, Grep, Glob, "mcp__pm-frameworks__*", "mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql"]
+allowed-tools: [Read, Write, Bash, Grep, Glob, "mcp__pm-frameworks__*", "searchJiraIssuesUsingJql"]
 model: sonnet
 ---
 

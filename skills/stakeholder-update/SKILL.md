@@ -3,6 +3,20 @@ name: stakeholder-update
 description: >
   Generate concise, action-oriented stakeholder updates in weekly, monthly,
   or executive summary format by pulling data from Jira and Slack.
+allowed-tools:
+  - Read
+  - Write
+  - Bash
+  - Grep
+  - Glob
+  - slack_send_message
+  - slack_search_public_and_private
+  - slack_create_canvas
+  - slack_schedule_message
+  - searchJiraIssuesUsingJql
+  - getJiraIssue
+  - createConfluencePage
+  - gmail_create_draft
 ---
 
 # Stakeholder Update
@@ -63,8 +77,8 @@ Best for: C-suite updates, board prep, investor communications.
 ## Process
 
 1. **Read settings** -- Look for the Jira project key in `${CLAUDE_PLUGIN_DATA}/settings.json` or prompt the user if not found.
-2. **Pull recent sprint data from Jira** -- Use `mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql` to fetch completed issues, in-progress work, and blockers for the relevant period.
-3. **Pull relevant Slack context** -- Use `mcp__claude_ai_Slack__slack_search_public_and_private` to find key decisions, announcements, and discussion threads from the period.
+2. **Pull recent sprint data from Jira** -- Use `searchJiraIssuesUsingJql` to fetch completed issues, in-progress work, and blockers for the relevant period.
+3. **Pull relevant Slack context** -- Use `slack_search_public_and_private` to find key decisions, announcements, and discussion threads from the period.
 4. **Fallback to manual input** -- If Jira or Slack are not connected or return no data, ask the user to provide the raw information (shipped items, metrics, blockers, priorities).
 5. **Draft the update** -- Assemble the content into the chosen format. Keep the tone concise and action-oriented. Avoid filler language. Every sentence should inform or prompt action.
 
@@ -83,20 +97,20 @@ Where `{format}` is one of `weekly`, `monthly`, or `exec-summary`, and `{YYYY-MM
 After generating the update, offer these delivery methods:
 
 ### Send to Slack (`--slack-channel CHANNEL_NAME`)
-Post the update directly to a Slack channel using `mcp__claude_ai_Slack__slack_send_message`.
-For rich formatting, use `mcp__claude_ai_Slack__slack_create_canvas` to create a linkable canvas.
+Post the update directly to a Slack channel using `slack_send_message`.
+For rich formatting, use `slack_create_canvas` to create a linkable canvas.
 
 ### Schedule for Later (`--schedule DATETIME`)
-Schedule the update for future delivery using `mcp__claude_ai_Slack__slack_schedule_message`.
+Schedule the update for future delivery using `slack_schedule_message`.
 Useful for Monday morning status updates drafted on Friday.
 
 ### Draft Email (`--email-draft RECIPIENTS`)
-Create a Gmail draft with the update content using `mcp__claude_ai_Gmail__gmail_create_draft`.
+Create a Gmail draft with the update content using `gmail_create_draft`.
 The subject line is derived from the format and date (e.g., "Weekly Update - 2026-03-22").
 Confirms draft creation with subject, recipients, and draft ID.
 
 ### Publish to Confluence
-Archive the update as a Confluence page using `mcp__claude_ai_Atlassian__createConfluencePage`.
+Archive the update as a Confluence page using `createConfluencePage`.
 
 All delivery options are additive -- the local markdown file is always generated first.
 If no delivery options are specified, only the local file is created.

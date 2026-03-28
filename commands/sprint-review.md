@@ -8,12 +8,12 @@ allowed-tools:
   - Grep
   - Glob
   - Agent(sprint-analyst)
-  - mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql
-  - mcp__claude_ai_Atlassian__getJiraIssue
-  - mcp__claude_ai_Google_Calendar__gcal_list_events
-  - mcp__claude_ai_Slack__slack_search_public_and_private
-  - mcp__claude_ai_Granola__list_meetings
-  - mcp__claude_ai_Granola__get_meeting_transcript
+  - searchJiraIssuesUsingJql
+  - getJiraIssue
+  - gcal_list_events
+  - slack_search_public_and_private
+  - list_meetings
+  - get_meeting_transcript
 model: sonnet
 ---
 
@@ -32,9 +32,9 @@ Project: Parse `--project JIRA_KEY` from arguments. If not provided, check `${CL
 
 Use Jira MCP tools to retrieve all issues belonging to the target sprint:
 
-- `mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql` to query issues by sprint ID or sprint name within the specified project.
+- `searchJiraIssuesUsingJql` to query issues by sprint ID or sprint name within the specified project.
 - For each issue, capture: key, summary, status, story points (or estimate), assignee, labels, issue type, epic link, resolution date, and any carry-over flags.
-- `mcp__claude_ai_Atlassian__getJiraIssue` for detailed data on specific tickets when needed (e.g., blockers, linked issues, comments).
+- `getJiraIssue` for detailed data on specific tickets when needed (e.g., blockers, linked issues, comments).
 
 Delegate the bulk data pulling and initial analysis to `Agent(sprint-analyst)`.
 
@@ -42,7 +42,7 @@ Delegate the bulk data pulling and initial analysis to `Agent(sprint-analyst)`.
 
 #### Calendar Context (Optional)
 
-If Google Calendar MCP is available, use `mcp__claude_ai_Google_Calendar__gcal_list_events` to pull
+If Google Calendar MCP is available, use `gcal_list_events` to pull
 calendar events for the sprint date range. This adds context about:
 - Team ceremonies (standups, retros, planning sessions held vs. skipped)
 - Meeting load (total meeting hours during the sprint)
@@ -53,7 +53,7 @@ If Google Calendar is not connected, skip this step silently.
 
 #### Slack Context (Optional)
 
-If Slack MCP is available, use `mcp__claude_ai_Slack__slack_search_public_and_private` to search
+If Slack MCP is available, use `slack_search_public_and_private` to search
 for sprint-related discussions during the sprint date range. Look for:
 - Blockers raised and how they were resolved
 - Key decisions made in channels
@@ -61,8 +61,8 @@ for sprint-related discussions during the sprint date range. Look for:
 
 #### Meeting Notes (Optional)
 
-If Granola MCP is available, use `mcp__claude_ai_Granola__list_meetings` and
-`mcp__claude_ai_Granola__get_meeting_transcript` to pull transcripts from sprint ceremonies
+If Granola MCP is available, use `list_meetings` and
+`get_meeting_transcript` to pull transcripts from sprint ceremonies
 (standups, planning, retro) during the sprint window. Extract:
 - Key decisions made during ceremonies
 - Action items and their owners
