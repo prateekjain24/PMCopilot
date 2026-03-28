@@ -2,6 +2,30 @@ const DEFAULT_TIMEOUT_MS = 10_000;
 const MAX_RETRIES = 3;
 const INITIAL_BACKOFF_MS = 500;
 
+// ---------- Per-host rate limiter ----------
+// Apple's APIs throttle aggressively when hit in rapid succession.
+// This ensures a minimum gap between requests to the same host.
+const MIN_REQUEST_GAP_MS = 350; // milliseconds between requests to same host
+const lastRequestTime = new Map<string, number>();
+
+function getHost(url: string): string {
+  try {
+    return new URL(url).host;
+  } catch {
+    return url;
+  }
+}
+
+async function throttle(url: string): Promise<void> {
+  const host = getHost(url);
+  const last = lastRequestTime.get(host) ?? 0;
+  const elapsed = Date.now() - last;
+  if (elapsed < MIN_REQUEST_GAP_MS) {
+    await sleep(MIN_REQUEST_GAP_MS - elapsed);
+  }
+  lastRequestTime.set(host, Date.now());
+}
+
 export class HttpError extends Error {
   constructor(
     public readonly status: number,
@@ -25,6 +49,7 @@ export async function fetchJson<T = unknown>(
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
+      await throttle(url);
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
 

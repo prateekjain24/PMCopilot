@@ -9,7 +9,8 @@ export const getAppDetailsTool = {
   description:
     "Get comprehensive metadata for a specific app from the App Store or Play Store. " +
     "Returns full details including description, version, size, ratings breakdown, " +
-    "screenshots, release notes, and more. Also records a rating snapshot for tracking.",
+    "screenshots, release notes, and more. Also records a rating snapshot for tracking. " +
+    "TIP: For region-specific apps, pass the correct `country` to get localized ratings and metadata.",
   parameters: z.object({
     store: z
       .enum(["app_store", "play_store"])
@@ -17,18 +18,24 @@ export const getAppDetailsTool = {
     app_id: z
       .string()
       .describe("App identifier (numeric ID for App Store, package name for Play Store)"),
+    country: z
+      .string()
+      .min(2)
+      .max(2)
+      .default("us")
+      .describe("Two-letter country code (default: us). Use the app's primary market for accurate ratings."),
   }),
-  execute: async (params: { store: "app_store" | "play_store"; app_id: string }) => {
-    const { store, app_id } = params;
+  execute: async (params: { store: "app_store" | "play_store"; app_id: string; country: string }) => {
+    const { store, app_id, country } = params;
 
-    const cacheKey = buildCacheKey("app_details", { store, app_id });
+    const cacheKey = buildCacheKey("app_details", { store, app_id, country });
     const cached = get<Record<string, unknown>>(cacheKey);
     if (cached) {
       return JSON.stringify({ source: "cache", ...cached }, null, 2);
     }
 
     if (store === "app_store") {
-      const app = await appStore.lookup(app_id);
+      const app = await appStore.lookup(app_id, country);
       if (!app) {
         return JSON.stringify({ error: true, message: `App not found: ${app_id}` }, null, 2);
       }

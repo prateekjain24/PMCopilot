@@ -60,7 +60,7 @@
         "hooks": [
           {
             "type": "agent",
-            "if": "Write(*prd*)|Write(*spec*)|Write(*requirements*)|Edit(*prd*)|Edit(*spec*)|Edit(*requirements*)",
+            "if": "Write(*prd*)|Write(*PRD*)|Write(*spec*)|Write(*requirements*)|Edit(*prd*)|Edit(*PRD*)|Edit(*spec*)|Edit(*requirements*)",
             "prompt": "You are a PRD quality reviewer. A Product Requirements Document was just written or edited. Read the file and check it against this rubric:\n\n1. **Metrics**: Does every goal have a specific, measurable success metric with a baseline and target? Flag any goal without numbers.\n2. **Non-goals**: Is there a non-goals section with meaningful exclusions (not just filler)? Flag if missing or trivial.\n3. **Edge cases**: Are error states and edge cases addressed? Flag if only the happy path is covered.\n4. **User stories**: Do user stories follow 'As a [persona], I want [action], so that [benefit]' format? Flag malformed stories.\n5. **Data citations**: Are claims backed by data, research, or references? Flag unattributed assertions.\n6. **Dependencies and risks**: Are dependencies identified with owners? Are risks listed with mitigations?\n7. **No TBD/TODO**: Flag any placeholder text like TBD, TODO, or [fill in later].\n\nFile that was just written: $TOOL_INPUT\n\nRead the file, evaluate each rubric item, and return a structured assessment. For any failing items, provide specific suggestions for improvement. The PM should see this feedback before sharing the PRD.",
             "timeout": 60
           }

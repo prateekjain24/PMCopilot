@@ -158,19 +158,38 @@ export async function getTopApps(
   const normalizedCategory = category.toLowerCase().replace(/[\s_]+/g, "-");
   const genreId = GENRE_IDS[normalizedCategory] ?? "";
 
-  // Apple RSS URL format: /{country}/apps/{feedType}/{limit}/genre={genreId}/apps.json
-  // When genreId is empty, omit the genre segment to get overall rankings.
-  const url = genreId
-    ? `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/genre=${genreId}/apps.json`
-    : `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/apps.json`;
+  // Apple Marketing Tools RSS API v2 URL format:
+  //   /{country}/apps/{feedType}/{limit}/apps.json             (all categories)
+  //   /{country}/apps/{feedType}/{limit}/genre={genreId}/apps.json  (filtered)
+  //
+  // NOTE: The genre-filtered URL does not work for all country/genre combos.
+  // Strategy: try genre-filtered first, fall back to unfiltered if empty.
+  const urls: string[] = [];
 
-  try {
-    const response = await fetchJson<RssFeedResponse>(url);
-    return response.feed.results;
-  } catch {
-    // RSS feed may not support all category filters; return empty
-    return [];
+  if (genreId) {
+    urls.push(
+      `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/genre=${genreId}/apps.json`
+    );
   }
+  // Always have the unfiltered URL as fallback
+  urls.push(
+    `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/apps.json`
+  );
+
+  for (const url of urls) {
+    try {
+      const response = await fetchJson<RssFeedResponse>(url);
+      const results = response.feed?.results ?? [];
+      if (results.length > 0) {
+        return results;
+      }
+    } catch {
+      // Try next URL
+      continue;
+    }
+  }
+
+  return [];
 }
 
 /**

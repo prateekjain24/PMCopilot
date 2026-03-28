@@ -24,9 +24,20 @@ Comparison: Parse `--compare` flag for a comma-separated list of competitor app 
 
 ## Process
 
+### Country / Region Selection
+
+Many app-store-intel tools accept a `country` parameter. Choosing the right country is critical for getting useful data:
+
+1. **Check pm-profile.json first.** If the PM's profile specifies a country or region, default to that.
+2. **Infer from the app.** If the app is clearly region-specific (e.g., Grab -> "sg", Gojek -> "id", Rappi -> "co", iFood -> "br"), use that country.
+3. **When in doubt, ask.** Don't default to "us" for a region-specific app -- the reviews and ratings will be sparse or empty.
+4. **For global apps** (e.g., Uber, WhatsApp, Instagram), "us" is a reasonable default since they have the most reviews there.
+
+Pass the same `country` value consistently across search, get_app_details, get_app_reviews, and get_review_sentiment calls for the same app.
+
 ### Step 1 -- Search
 
-Use `mcp__app-store-intel__*` tools to locate the target app(s) on both the iOS App Store and Google Play Store.
+Use `mcp__app-store-intel__*` tools to locate the target app(s) on both the iOS App Store and Google Play Store. Pass the appropriate `country` code.
 
 - Search by app name. If multiple results are returned, present the top matches and ask the user to confirm the correct one.
 - Capture: app ID, bundle ID, developer name, category, current version, and store URLs.

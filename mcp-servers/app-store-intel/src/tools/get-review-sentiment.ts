@@ -21,7 +21,9 @@ export const getReviewSentimentTool = {
     "Analyze the sentiment of user reviews for a specific app. Fetches a sample of reviews, " +
     "runs keyword-based sentiment analysis, and extracts common themes. Returns overall " +
     "sentiment breakdown (positive/negative/neutral percentages) and the top themes " +
-    "mentioned in positive and negative reviews.",
+    "mentioned in positive and negative reviews. " +
+    "IMPORTANT: Set `country` to the app's primary market for best results. " +
+    "Region-specific apps (e.g., Grab in SG, Rappi in CO) have few reviews on the US store.",
   parameters: z.object({
     store: z
       .enum(["app_store", "play_store"])
@@ -29,6 +31,12 @@ export const getReviewSentimentTool = {
     app_id: z
       .string()
       .describe("App identifier (numeric ID for App Store, package name for Play Store)"),
+    country: z
+      .string()
+      .min(2)
+      .max(2)
+      .default("us")
+      .describe("Two-letter country code (default: us). Use the country where the app is popular for best results."),
     sample_size: z
       .number()
       .int()
@@ -40,11 +48,12 @@ export const getReviewSentimentTool = {
   execute: async (params: {
     store: "app_store" | "play_store";
     app_id: string;
+    country: string;
     sample_size: number;
   }) => {
-    const { store, app_id, sample_size } = params;
+    const { store, app_id, country, sample_size } = params;
 
-    const cacheKey = buildCacheKey("review_sentiment", { store, app_id, sample_size });
+    const cacheKey = buildCacheKey("review_sentiment", { store, app_id, country, sample_size });
     const cached = get<SentimentReport>(cacheKey);
     if (cached) {
       return JSON.stringify({ source: "cache", ...cached }, null, 2);
@@ -59,7 +68,7 @@ export const getReviewSentimentTool = {
       const allReviews: Array<{ title: string; text: string }> = [];
 
       for (let page = 1; page <= Math.min(pages, 10); page++) {
-        const pageReviews = await appStore.getReviews(app_id, "us", page, "mostRecent");
+        const pageReviews = await appStore.getReviews(app_id, country, page, "mostRecent");
         allReviews.push(...pageReviews);
         if (pageReviews.length < 50) break;
       }
@@ -70,7 +79,7 @@ export const getReviewSentimentTool = {
         .filter((t) => t.length > 0);
     } else {
       try {
-        const playReviews = await playStore.getReviews(app_id, "us", sample_size, "newest");
+        const playReviews = await playStore.getReviews(app_id, country, sample_size, "newest");
         reviewTexts = playReviews
           .map((r) => [r.title, r.text].filter(Boolean).join(" "))
           .filter((t) => t.length > 0);

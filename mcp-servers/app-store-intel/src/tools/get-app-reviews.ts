@@ -19,7 +19,10 @@ export const getAppReviewsTool = {
   description:
     "Fetch user reviews for a specific app from the App Store or Play Store. " +
     "Returns normalized review data including author, rating, text, version, and date. " +
-    "Useful for understanding user sentiment, common complaints, and feature requests.",
+    "Useful for understanding user sentiment, common complaints, and feature requests. " +
+    "IMPORTANT: Set `country` to the app's primary market (e.g., 'sg' for Grab, 'br' for iFood, 'id' for Gojek). " +
+    "Using 'us' for a region-specific app will return few or no reviews. " +
+    "If unsure, first call get_app_details or search_app_store with the target country to confirm the app exists there.",
   parameters: z.object({
     store: z
       .enum(["app_store", "play_store"])
@@ -27,6 +30,12 @@ export const getAppReviewsTool = {
     app_id: z
       .string()
       .describe("App identifier (numeric ID for App Store, package name for Play Store)"),
+    country: z
+      .string()
+      .min(2)
+      .max(2)
+      .default("us")
+      .describe("Two-letter country code (default: us). Use the country where the app is popular for best results."),
     count: z
       .number()
       .int()
@@ -49,13 +58,14 @@ export const getAppReviewsTool = {
   execute: async (params: {
     store: "app_store" | "play_store";
     app_id: string;
+    country: string;
     count: number;
     sort: "most_recent" | "most_helpful";
     rating_filter?: number;
   }) => {
-    const { store, app_id, count, sort, rating_filter } = params;
+    const { store, app_id, country, count, sort, rating_filter } = params;
 
-    const cacheKey = buildCacheKey("app_reviews", { store, app_id, count, sort, rating_filter });
+    const cacheKey = buildCacheKey("app_reviews", { store, app_id, country, count, sort, rating_filter });
     const cached = get<NormalizedReview[]>(cacheKey);
     if (cached) {
       return JSON.stringify(
@@ -73,7 +83,7 @@ export const getAppReviewsTool = {
       const pages = Math.ceil(count / 50);
 
       for (let page = 1; page <= Math.min(pages, 10); page++) {
-        const pageReviews = await appStore.getReviews(app_id, "us", page, sortBy as "mostRecent" | "mostHelpful");
+        const pageReviews = await appStore.getReviews(app_id, country, page, sortBy as "mostRecent" | "mostHelpful");
         reviews.push(...pageReviews);
         if (pageReviews.length < 50) break;
       }
