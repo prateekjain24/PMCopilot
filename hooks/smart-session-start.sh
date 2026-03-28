@@ -138,6 +138,7 @@ ARTIFACT_DIRS=(
   "docs/market-sizing:Market Sizing"
   "docs/research:User Research"
   "docs/launch-checklists:Launch Checklist"
+  "docs/prioritization:Prioritization"
 )
 
 for entry in "${ARTIFACT_DIRS[@]}"; do
@@ -165,19 +166,7 @@ for entry in "${ARTIFACT_DIRS[@]}"; do
   fi
 done
 
-# Also check for prioritization files in docs/ root
-while IFS= read -r file; do
-  [ -z "$file" ] && continue
-  TOTAL_ARTIFACTS=$((TOTAL_ARTIFACTS + 1))
-  BASENAME=$(basename "$file" .md)
-  MTIME=$(stat -f %m "$file" 2>/dev/null || stat -c %Y "$file" 2>/dev/null || echo "0")
-  AGE_DAYS=$(( (NOW_EPOCH - MTIME) / 86400 ))
-  if [ "$AGE_DAYS" -gt 30 ]; then
-    STALE_COUNT=$((STALE_COUNT + 1))
-    STALE_ITEMS+="  STALE (${AGE_DAYS}d): Prioritization -- $BASENAME
-"
-  fi
-done < <(find "$CWD/docs" -maxdepth 1 -name "prioritization-*.md" -type f 2>/dev/null)
+# Prioritization files are now in docs/prioritization/ like all other artifact types
 
 if [ "$TOTAL_ARTIFACTS" -gt 0 ]; then
   ARTIFACT_SECTION+="
@@ -245,7 +234,7 @@ fi
 
 # Gap: Roadmap exists but no prioritization
 if [ "$ROADMAP_COUNT" -gt 0 ]; then
-  PRIORITIZATION_COUNT=$(find "$CWD/docs" -maxdepth 1 -name "prioritization-*.md" -type f 2>/dev/null | wc -l | tr -d ' ')
+  PRIORITIZATION_COUNT=$(find "$CWD/docs/prioritization" -name "*.md" -type f 2>/dev/null | wc -l | tr -d ' ')
   if [ "$PRIORITIZATION_COUNT" -eq 0 ]; then
     GAPS+="  GAP: Roadmap exists but no prioritization backing it up.
 "

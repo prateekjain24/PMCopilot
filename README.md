@@ -323,11 +323,11 @@ PMCopilot follows a stacking pattern where commands orchestrate agents, and agen
 
 ## Hooks: The Invisible Quality Layer
 
-PMCopilot includes 7 lifecycle hooks that run automatically in the background. They don't do the work -- skills and agents do the work. Hooks catch problems, enrich context, and enforce quality standards without you having to ask. Think of them as an invisible chief of staff reviewing everything before it goes out.
+PMCopilot includes 8 lifecycle hooks that run automatically in the background. They don't do the work -- skills and agents do the work. Hooks catch problems, enrich context, and enforce quality standards without you having to ask. Think of them as an invisible chief of staff reviewing everything before it goes out.
 
 ### Session Intelligence
 
-**Smart Session Start** fires at the beginning of every session. It loads your PM profile, reads the folder's _Context.md, checks for stale competitive data or sprint files, and surfaces unfinished work from your last session. The result is injected into Claude's context so every session opens informed rather than blank.
+**Smart Session Start** fires at the beginning of every session. It loads your PM profile, reads the folder's _Context.md, scans all artifact directories for staleness and TBD markers, runs gap analysis (PRDs without experiments, roadmaps without prioritization backing), checks cache freshness, and surfaces unfinished work from your last session. The result is injected into Claude's context so every session opens informed rather than blank. Zero LLM cost.
 
 ### Quality Gates
 
@@ -347,6 +347,8 @@ Two hooks automatically enrich data as it flows through PMCopilot:
 
 **Competitive Delta Tracker** fires after any app-store-intel call. It compares the current result with the last snapshot for the same app and flags changes: rating shifts, new reviews, version bumps, sentiment movement. Every competitive check becomes automatically longitudinal.
 
+**Artifact Index Updater** fires after any file is written or edited in `docs/` subdirectories. It maintains `docs/.artifact-index.json` -- a lightweight metadata index tracking artifact type, title, creation/update dates, and TBD/TODO status. This powers the Smart Session Start hook's artifact health scan. Zero LLM cost.
+
 ### Verification
 
 **Citation Verifier** fires when Claude finishes a substantial response. It checks whether factual claims (numbers, competitor data, user behavior assertions) are cited with their source. Uncited claims get flagged, and Claude adds references before showing you the final output.
@@ -361,19 +363,21 @@ Two hooks automatically enrich data as it flows through PMCopilot:
 | Jira Ticket Quality Gate | prompt | 1 call | Only when creating tickets |
 | Sprint Anomaly Detector | command | None | Only when querying Jira |
 | Competitive Delta Tracker | command | None | Only when using app-store-intel |
+| Artifact Index Updater | command | None | When writing/editing files in docs/ |
 | Citation Verifier | prompt | 1 call | Every substantial response |
 
-Three of the seven hooks (session start, sprint anomaly, competitive delta) use zero LLM calls -- they are pure shell scripts. The other four use one LLM call each and only fire on specific actions. In a typical session you'll see 0-3 extra LLM calls total.
+Four of the eight hooks (session start, sprint anomaly, competitive delta, artifact index) use zero LLM calls -- they are pure shell scripts. The other four use one LLM call each and only fire on specific actions. In a typical session you'll see 0-3 extra LLM calls total.
 
 ---
 
 ## Reference
 
-### Commands (13)
+### Commands (14)
 
 | Command | Description |
 |---------|-------------|
 | `/pmcopilot:setup` | First-run onboarding wizard -- creates PM profile, scaffolds folder context, sets up scheduled tasks |
+| `/pmcopilot:brief` | On-demand Chief of Staff briefing with live data from Jira, Slack, Calendar, and analytics |
 | `/pmcopilot:prd` | Generate PRDs in Google, Amazon PRFAQ, or Stripe formats |
 | `/pmcopilot:prioritize` | Score features using RICE, ICE, MoSCoW, Kano, or Cost of Delay |
 | `/pmcopilot:roadmap` | Generate roadmaps in Now/Next/Later or outcome-based format |
@@ -421,6 +425,26 @@ Three of the seven hooks (session start, sprint anomaly, competitive delta) use 
 | Amplitude | Metrics review | HTTP |
 | Mixpanel | Metrics review | HTTP |
 | Chrome | Web teardown, Competitive teardown | Local |
+
+---
+
+## How PMCopilot Thinks
+
+PMCopilot is built around eight principles that make it behave like a sharp PM colleague rather than a generic AI tool. Two of these are worth understanding because they shape every interaction.
+
+### Clarify Before You Create
+
+PMCopilot will never generate a strategic artifact from a vague prompt. Before writing a PRD, designing an experiment, or building a roadmap, it asks 2-3 sharp clarifying questions -- the kind a great PM mentor would ask. "What user problem does this solve, and how do you know it's real?" is more useful than "What's the feature name?"
+
+This is deliberate. The biggest waste in PM work isn't bad execution -- it's executing the wrong thing clearly. The questions help you sharpen your own thinking before the tool starts working.
+
+Every command defines which questions are must-know (blocks execution), should-know (asked unless already answered by context), and nice-to-know (skipped unless you invite depth). The question burden decreases over time as your PM profile and folder context fill in the answers automatically.
+
+### Chief of Staff, Not a Dashboard
+
+PMCopilot doesn't wait for commands. At the start of every session, it reviews your artifact health (what's stale, what has TBDs, what gaps exist in your product work) and opens the conversation with what needs attention. This costs zero tokens -- it's a shell script scanning your local files.
+
+When you want the full picture with live data, run `/pmcopilot:brief`. This pulls from Jira (sprint status), Slack (recent discussions), Calendar (today's meetings), and analytics (metric anomalies) to give you a comprehensive briefing.
 
 ---
 

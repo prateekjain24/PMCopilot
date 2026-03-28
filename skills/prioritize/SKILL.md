@@ -87,7 +87,7 @@ Best for: sequencing decisions when time-sensitivity matters more than absolute 
    - Brief rationale for each feature's score
    - **Top 3 recommendation**: highlight the highest-priority items with reasoning
    - **Trade-off analysis**: discuss close calls or contentious rankings
-   - Save output to a file (e.g., `docs/prioritization-{framework}-{date}.md`)
+   - Save output to a file (e.g., `docs/prioritization/prioritization-{framework}-{date}.md`)
 
 ## Output Format
 

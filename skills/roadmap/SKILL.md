@@ -45,7 +45,7 @@ Template file: `templates/outcome-based.md`
 1. **Read settings**: Check `settings.json` for `default_roadmap_format` and `default_roadmap_quarters` to determine defaults. Parse $ARGUMENTS for `--quarters` flag to allow override.
 
 2. **Gather context**: Search the workspace and connected tools for inputs that inform the roadmap:
-   - Prior prioritization outputs in `docs/prioritization-*.md`
+   - Prior prioritization outputs in `docs/prioritization/`
    - Existing PRDs in `docs/prds/`
    - Competitive teardown reports or market research
    - Jira backlog items: use `searchJiraIssuesUsingJql` to pull epics, stories, and their statuses from the active project. Focus on unresolved items with priority or label data.

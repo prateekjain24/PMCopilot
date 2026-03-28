@@ -44,7 +44,7 @@ case "$FILE_PATH" in
   */docs/prds/*|*/docs/roadmaps/*|*/docs/teardowns/*|*/docs/experiments/*|\
   */docs/sprint-reviews/*|*/docs/updates/*|*/docs/metrics-reviews/*|\
   */docs/app-store-intel/*|*/docs/market-sizing/*|*/docs/research/*|\
-  */docs/launch-checklists/*|*/docs/prioritization-*)
+  */docs/launch-checklists/*|*/docs/prioritization/*)
     ;;
   *)
     exit 0
@@ -73,7 +73,7 @@ type_map = {
     '/docs/market-sizing/': 'market-sizing',
     '/docs/research/': 'user-research',
     '/docs/launch-checklists/': 'launch-checklist',
-    '/docs/prioritization': 'prioritization',
+    '/docs/prioritization/': 'prioritization',
 }
 for pattern, t in type_map.items():
     if pattern in path:
