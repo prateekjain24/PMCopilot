@@ -17,15 +17,24 @@ Produce a rigorous TAM/SAM/SOM analysis for a given market or product opportunit
 
 ## Process
 
-### Step 1: Define the Market
+### Step 1: Define the Market (Clarification Framework)
 
-Prompt the user for:
-- **Market or product description**: What market are we sizing? Be as specific as possible.
-- **Geography**: Target region (global, North America, EU, APAC, specific country, etc.). Default: global.
-- **Time horizon**: How many years forward to project (1, 3, 5, 10). Default: 5 years.
-- **Known data points**: Any existing data the user already has (revenue figures, user counts, industry reports, etc.).
+Apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
 
-Clarify the market boundaries before proceeding. A well-defined market is the foundation of a credible estimate.
+**Must-know (always ask, block execution until answered):**
+- What market or product opportunity are we sizing? Be specific -- "ride-hailing in Southeast Asia" is actionable, "transportation" is not.
+- What will this sizing be used for? (Pitch deck, planning, investment case, go/no-go decision) -- this determines precision needs.
+
+**Should-know (ask unless inferable from context):**
+- Geography: target region (global, APAC, specific country, etc.). Default: global.
+- Time horizon: how many years forward (1, 3, 5, 10). Default: 5 years.
+- Do you have any existing data points (revenue figures, user counts, industry reports)?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Methodology preference: top-down, bottom-up, or both?
+- Are there comparable markets you'd like me to reference as cross-validation?
+
+Ask 2-3 questions conversationally. Clarify market boundaries before proceeding -- a well-defined market is the foundation of a credible estimate.
 
 ### Step 2: Top-Down Analysis
 

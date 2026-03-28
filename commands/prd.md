@@ -34,6 +34,26 @@ Edge Cases, Rollout Plan, Success Metrics.
 Best for: API-first products, platform features, developer-facing tools.
 Template file: `templates/stripe-prd.md`
 
+## Clarification Framework
+
+Before writing the PRD, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What user problem does this solve, and how do you know it's real? (evidence: user research, support tickets, data)
+- If this ships and succeeds, what single metric changes and by how much?
+- Who is the target user -- and who is explicitly NOT the target?
+
+**Should-know (ask unless inferable from context):**
+- What's the timeline pressure -- is there a hard deadline or external dependency?
+- What has been tried before, and why didn't it work (or why isn't it enough)?
+- Are there technical, regulatory, or organizational constraints that shape the solution space?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Which PRD template do you prefer (Amazon PRFAQ, Google, Stripe)?
+- Who will review this PRD and what do they care about most?
+
+Ask 2-3 questions conversationally, not as a form. If the user's prompt already answers most must-know questions, acknowledge what you understood and confirm before proceeding.
+
 ## Process
 
 1. **Read settings**: Check `settings.json` for `default_prd_template` to determine the

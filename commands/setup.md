@@ -18,19 +18,25 @@ You are running the PMCopilot onboarding wizard. Your job is to help a Product M
 
 ## Step 1: Collect User Profile
 
+This step builds the pm-profile.json that powers Principle #1 ("Clarify before you create"). The more we learn here, the fewer questions every future command needs to ask. Frame it that way to the user: "The more context you give me now, the less I'll need to ask you every time."
+
 Ask the user these questions conversationally. Do NOT present them as a form. Ask 2-3 at a time, react to answers, and follow up naturally.
 
 Questions to cover:
 
 - What is your name and role? (e.g., "Head of Product at Grab")
 - What team or product area do you own? (e.g., "GrabPay, GrabRewards, Merchant Dashboard")
+- What is your primary product line and market? (e.g., "GrabFood, Singapore and Indonesia") -- this becomes the default for all commands
 - Who are your key stakeholders? (names and roles, e.g., "CTO - Alex, Design Lead - Maya")
 - Do you have a Jira project key you use most often? (e.g., "GRAB" or "GPAY")
+- What's your default user segment or persona? (e.g., "drivers", "merchants", "consumers aged 25-40")
 - How do you prefer outputs? Ask about:
   - Tables vs prose for comparisons
   - Citation style (always cite source files? yes/no)
   - Language preferences (simple English, no jargon, etc.)
   - Any formatting preferences (e.g., "no em dashes", "no bullet points in reports")
+  - Preferred prioritization framework (RICE, ICE, etc.)
+  - Preferred PRD template (Amazon PRFAQ, Google, Stripe)
 
 ## Step 2: Write pm-profile.json
 
@@ -43,6 +49,9 @@ Once you have the answers, create the profile:
   "company": "",
   "team": "",
   "products_owned": [],
+  "primary_product_line": "",
+  "default_market": "",
+  "default_user_segment": "",
   "key_stakeholders": [],
   "jira_project_key": "",
   "figma_team_id": "",
@@ -51,6 +60,8 @@ Once you have the answers, create the profile:
     "language": "simple English, no corporate filler",
     "cite_sources": true,
     "plan_first": true,
+    "preferred_prd_template": "",
+    "preferred_prioritization_framework": "",
     "custom_rules": []
   },
   "schedule_timezone": "",
@@ -58,6 +69,8 @@ Once you have the answers, create the profile:
   "updated_at": ""
 }
 ```
+
+The `primary_product_line`, `default_market`, and `default_user_segment` fields power progressive context reduction (Principle #1). When these are set, commands skip corresponding must-know questions and use these values as defaults.
 
 Save to `${CLAUDE_PLUGIN_DATA}/pm-profile.json`. Also update `settings.json` in the plugin root with the Jira project key and Figma team ID if provided.
 

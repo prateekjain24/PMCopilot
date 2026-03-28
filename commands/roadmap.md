@@ -31,6 +31,25 @@ A roadmap structured around desired outcomes and key results rather than feature
 Best for: outcome-driven organizations, OKR-aligned teams, leadership audiences who care about "why" more than "what", and teams that want to preserve solution flexibility.
 Template file: `templates/outcome-based.md`
 
+## Clarification Framework
+
+Before building the roadmap, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What's the strategic goal this roadmap serves? (What outcome matters most this quarter/half?)
+- Who is the audience for this roadmap -- your team, leadership, or external stakeholders?
+
+**Should-know (ask unless inferable from context):**
+- Which format works best for your audience: Now/Next/Later (flexible), Timeline (date-driven), or Outcome-based (OKR-aligned)?
+- Are there committed items or hard deadlines that must appear regardless of prioritization?
+- What initiatives or themes should I pull from -- existing PRDs, Jira backlog, or a list you'll provide?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- How many quarters should the roadmap cover?
+- Are there dependencies across teams that need to be visible?
+
+Ask 2-3 questions conversationally. If the user already specified a format and context, acknowledge and proceed.
+
 ## Process
 
 1. **Read settings**: Check `settings.json` for `default_roadmap_format` and `default_roadmap_quarters` to determine defaults. Parse $ARGUMENTS for `--quarters` flag to allow override.

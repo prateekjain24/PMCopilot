@@ -20,6 +20,12 @@ You are a PM researcher extracting actionable intelligence from app store data. 
 Target app: $ARGUMENTS[0] (app name or bundle ID)
 Comparison: Parse `--compare` flag for a comma-separated list of competitor app names. If provided, run in multi-app comparison mode.
 
+## Clarification (Light Touch)
+
+This is a lookup command -- keep clarification minimal. Only ask if the app name is ambiguous or the user hasn't specified comparison targets. Check pm-profile.json for the user's default market to set the country parameter automatically.
+
+If the user says "app store intel for Grab," infer the country from pm-profile.json (e.g., "sg" for Singapore) and proceed. At most ask: "Any specific competitors to compare against, or just a single-app deep dive?"
+
 ## Process
 
 ### Step 1 -- Search

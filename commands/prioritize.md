@@ -44,6 +44,24 @@ Best for: when strategic criteria don't fit standard frameworks.
 Time-value scoring: Cost of Delay per week / Job Duration in weeks.
 Best for: sequencing decisions when time-sensitivity matters more than absolute value.
 
+## Clarification Framework
+
+Before prioritizing, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What are the features or initiatives to prioritize? (Provide a list, or point to a Jira project to pull from)
+- What's the strategic goal for this period? (Prioritization without a goal is just sorting.)
+
+**Should-know (ask unless inferable from context):**
+- Which framework: RICE, ICE, MoSCoW, Kano, Weighted Scoring, or Cost of Delay? (If unsure, recommend RICE as default)
+- What's the time horizon -- are you prioritizing for this sprint, this quarter, or this half?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Are there resource constraints that should factor into effort estimates?
+- Any items that are already committed and shouldn't be re-prioritized?
+
+Ask 2-3 questions conversationally. If the user provides a list and a framework, proceed directly.
+
 ## Process
 
 1. **Select framework**: If no framework is specified, ask the user which one to use.

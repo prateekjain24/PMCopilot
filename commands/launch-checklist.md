@@ -50,12 +50,26 @@ The full checklist spans 9 categories:
 | Rollout Plan          | Yes  | Yes  | Yes  |
 | Post-Launch           | Yes  | Yes  | No   |
 
+## Clarification Framework
+
+Before generating the checklist, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What are you launching and when? (Product/feature name and target date)
+- What type of launch: hard (full public), soft (controlled rollout), or beta (closed group)?
+
+**Should-know (ask unless inferable from context):**
+- What's the blast radius if something goes wrong? (This shapes how thorough QA and rollback sections need to be)
+- Are there regulatory, legal, or compliance requirements for this launch?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Who owns each category (engineering, QA, marketing, support) -- or should I leave owners blank for you to fill?
+
+Ask 2-3 questions conversationally. If the user provides launch type, product, and date in their prompt, proceed directly.
+
 ## Process
 
-1. Prompt the user for:
-   - **Launch type**: soft, hard, or beta
-   - **Product name**: the product or feature being launched
-   - **Target launch date**: when the launch is planned
+1. Confirm launch parameters from clarification above:
 
 2. Load the checklist template from `templates/launch-checklist.md`.
 

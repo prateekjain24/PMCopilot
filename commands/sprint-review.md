@@ -26,6 +26,23 @@ You are a senior PM preparing for a sprint review meeting. Your job is to pull s
 Sprint: $ARGUMENTS[0] (a sprint ID, sprint name, or "current" to use the active sprint; defaults to "current")
 Project: Parse `--project JIRA_KEY` from arguments. If not provided, check `${CLAUDE_PLUGIN_DATA}/settings.json` for `jira_project_key`. If still not found, prompt the user.
 
+## Clarification Framework
+
+Before analyzing the sprint, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- Which sprint are you reviewing? (Current, a specific sprint name/ID, or the most recently completed?)
+- Which Jira project? (Check pm-profile.json for jira_project_key first)
+
+**Should-know (ask unless inferable from context):**
+- Is this for your own prep or will you present it to the team/stakeholders?
+- Any specific concerns you want the review to investigate? (e.g., "we missed the commitment" or "I think we're spending too much on bugs")
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Should I pull Slack context and meeting notes for additional color?
+
+Ask 1-2 questions conversationally. If the user says "review current sprint" and pm-profile.json has the Jira project key, proceed immediately with just a confirmation.
+
 ## Process
 
 ### Step 1 -- Pull Sprint Data

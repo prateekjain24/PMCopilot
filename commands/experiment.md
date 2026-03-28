@@ -99,6 +99,25 @@ Report the required sample size per variant and the estimated time to reach that
 - Criteria for early stopping (both positive and negative)
 - Ramp-down and cleanup procedures
 
+## Clarification Framework
+
+Before designing the experiment, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What's the hypothesis in one sentence? (If we do X, then Y will change by Z, because...)
+- What's the primary metric and your current baseline for it?
+
+**Should-know (ask unless inferable from context):**
+- Which user segment and market will this run in?
+- Are there guardrail metrics that must not regress?
+- How long can you run this before needing a ship/no-ship decision?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Have you run related experiments before? What did you learn?
+- Is there a minimum detectable effect you care about, or should I recommend one?
+
+Ask 2-3 questions conversationally, not as a form. If the user provides a clear hypothesis in their prompt, acknowledge it and move to should-know questions.
+
 ## Process
 
 1. **Understand the context**: Read any provided background, PRDs, or prior research. Ask clarifying questions if the change or goal is ambiguous.

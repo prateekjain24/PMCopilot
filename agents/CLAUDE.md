@@ -49,6 +49,15 @@ System prompt and instructions here...
 
 app-teardown and web-teardown use `background: true` + `isolation: worktree` because they may run for minutes navigating apps/websites.
 
+## Clarification Awareness
+
+Agents are typically invoked by commands, which handle the Clarification Framework (Principle #1) before dispatching the agent. Agents should:
+
+1. **Check the input brief** for the PM's answers to must-know questions. If critical context is present, use it.
+2. **Do not re-ask** questions the invoking command already clarified.
+3. **Flag gaps** if the brief is missing critical information (e.g., no target user specified for a PRD, no hypothesis for an experiment). Ask the invoking command to clarify rather than guessing.
+4. **Never generate a strategic artifact from a vague one-liner.** If you receive "write a PRD for notifications" with no further context, surface the gap.
+
 ## Design Decisions
 
 - **Android emulator is primary** for competitor app teardowns (APKs easier to obtain, no code signing, reliable adb)

@@ -73,6 +73,24 @@ Best for: leadership reviews, monthly business reviews.
 
 Best for: C-suite updates, board prep, investor communications.
 
+## Clarification Framework
+
+Before drafting the update, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- Who is the audience for this update, and what do they care about most? (Your team cares about different things than your VP.)
+- Which format: weekly, monthly, or exec-summary?
+
+**Should-know (ask unless inferable from context):**
+- What period should this cover? (Default: last 7 days for weekly, 30 days for monthly/exec)
+- Are there specific wins, blockers, or decisions you want highlighted?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- How should this be delivered -- Slack, email draft, Confluence, or just a local file?
+- Any tone preferences? (e.g., "keep it optimistic" or "be direct about risks")
+
+Ask 2-3 questions conversationally. If the user says "weekly update for my team," that answers format and gives a strong audience signal -- confirm and proceed.
+
 ## Process
 
 1. **Read settings** -- Look for the Jira project key in `${CLAUDE_PLUGIN_DATA}/settings.json` or prompt the user if not found.

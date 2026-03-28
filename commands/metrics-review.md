@@ -22,6 +22,25 @@ You are a senior PM conducting a structured review of product metrics. Your job 
 Framework: $ARGUMENTS[0] (either "north-star" or "aarrr"; if not specified, ask the user which framework to use and explain both briefly)
 Product: Parse `--product PRODUCT_NAME` from arguments. If not provided, check `${CLAUDE_PLUGIN_DATA}/settings.json` for `default_product`. If still not found, prompt the user.
 
+## Clarification Framework
+
+Before running the metrics review, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- Which product or feature area are you reviewing metrics for?
+- What triggered this review -- are you looking for anomalies, preparing for a business review, or tracking a specific initiative?
+
+**Should-know (ask unless inferable from context):**
+- Which framework: North Star Metric or AARRR Pirate Metrics?
+- Do you already have a defined North Star metric, or should we identify one together?
+- What time range should I analyze?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Are there specific metrics you suspect are off?
+- What analytics platform should I pull from (Amplitude, Mixpanel, or manual)?
+
+Ask 2-3 questions conversationally. If the user says "review my AARRR metrics for GrabFood," that answers product and framework -- confirm and proceed.
+
 ## Frameworks
 
 ### North Star Metric

@@ -75,6 +75,25 @@ This skill connects to Granola for meeting transcript access:
 
 When analyzing transcripts, the skill automatically identifies participant roles, extracts verbatim quotes, and tags observations by theme.
 
+## Clarification Framework
+
+Before generating any research artifact, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
+
+**Must-know (always ask, block execution until answered):**
+- What research question are you trying to answer? (The artifact is a means, not an end -- what decision will this inform?)
+- Which artifact type do you need? (persona, interview-guide, jtbd, affinity-map, analyze-transcript)
+
+**Should-know (ask unless inferable from context):**
+- Who is the target user population for this research?
+- Do you have existing data to work from (interview notes, survey results, transcripts, support tickets)?
+- What product or feature area does this research support?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- What's the timeline -- when do you need to present findings?
+- Are there hypotheses you want to validate or is this exploratory?
+
+Ask 2-3 questions conversationally. For transcript analysis, if `--from-granola` is passed, the artifact type is already known -- skip that question.
+
 ## Process
 
 1. **Clarify the request**: Determine which artifact type the user needs. If not specified, ask.

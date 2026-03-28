@@ -23,14 +23,23 @@ Platform: Parse `--platform` from arguments. Options: `ios`, `android`, `web`, `
 
 ## Process
 
-### Step 0 -- Confirm Scope
+### Step 0 -- Clarify Scope (Clarification Framework)
 
-Before dispatching agents, confirm with the user:
+Before dispatching agents, apply Principle #1 ("Clarify before you create"). Check pm-profile.json and _Context.md first -- skip any question already answered there or in the user's prompt.
 
-- Which competitor(s) to analyze.
-- What your product is (for comparison context).
-- Which platforms to cover (skip simulator-based teardowns if the user only wants web, and vice versa).
-- Any specific areas of focus (e.g., "focus on onboarding and pricing" vs. full teardown).
+**Must-know (always ask, block execution until answered):**
+- Which competitor(s) to analyze, and what specific question are you trying to answer? (Not "tell me everything" -- what decision will this teardown inform?)
+- What is your product for comparison context? (Check pm-profile.json first)
+
+**Should-know (ask unless inferable from context):**
+- Which dimensions matter most -- UX, pricing, features, go-to-market, or all?
+- Which platforms to cover (iOS, Android, web, or all)?
+
+**Nice-to-know (skip unless the PM invites depth):**
+- Are there previous teardown findings to build on or track changes against?
+- Any specific flows to focus on (e.g., "onboarding" or "checkout")?
+
+Ask 2-3 questions conversationally. If the user says "Grab vs Gojek" and pm-profile.json shows they own GrabFood, you already know the comparison context -- confirm and move on.
 
 ### Step 1 -- Dispatch Agents in Parallel
 
