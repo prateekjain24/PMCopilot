@@ -56,7 +56,7 @@ export const getReviewSentimentTool = {
 
     if (store === "app_store") {
       const pages = Math.ceil(sample_size / 50);
-      const allReviews: Array<{ text: string }> = [];
+      const allReviews: Array<{ title: string; text: string }> = [];
 
       for (let page = 1; page <= Math.min(pages, 10); page++) {
         const pageReviews = await appStore.getReviews(app_id, "us", page, "mostRecent");
@@ -66,7 +66,7 @@ export const getReviewSentimentTool = {
 
       reviewTexts = allReviews
         .slice(0, sample_size)
-        .map((r) => [r.text].filter(Boolean).join(" "))
+        .map((r) => [r.title, r.text].filter(Boolean).join(" "))
         .filter((t) => t.length > 0);
     } else {
       try {

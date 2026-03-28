@@ -106,7 +106,38 @@ export async function lookup(
 }
 
 /**
+ * Map common category names to Apple genre IDs.
+ * Full list: https://affiliate.itunes.apple.com/resources/documentation/genre-mapping/
+ */
+const GENRE_IDS: Record<string, string> = {
+  "all": "",
+  "games": "6014",
+  "business": "6000",
+  "education": "6017",
+  "entertainment": "6016",
+  "finance": "6015",
+  "food-drink": "6023",
+  "health-fitness": "6013",
+  "lifestyle": "6012",
+  "medical": "6020",
+  "music": "6011",
+  "navigation": "6010",
+  "news": "6009",
+  "photo-video": "6008",
+  "productivity": "6007",
+  "reference": "6006",
+  "shopping": "6024",
+  "social-networking": "6005",
+  "sports": "6004",
+  "travel": "6003",
+  "utilities": "6002",
+  "weather": "6001",
+};
+
+/**
  * Fetch top apps from the App Store RSS feed.
+ * When a category is provided, it is mapped to an Apple genre ID and appended
+ * to the URL path so the feed returns category-specific rankings.
  */
 export async function getTopApps(
   category: string,
@@ -121,7 +152,17 @@ export async function getTopApps(
   };
 
   const feedType = typeMap[type] ?? "top-free";
-  const url = `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${Math.min(limit, 200)}/apps.json`;
+  const safeLimit = Math.min(limit, 200);
+
+  // Resolve genre ID from category name (case-insensitive, normalized)
+  const normalizedCategory = category.toLowerCase().replace(/[\s_]+/g, "-");
+  const genreId = GENRE_IDS[normalizedCategory] ?? "";
+
+  // Apple RSS URL format: /{country}/apps/{feedType}/{limit}/genre={genreId}/apps.json
+  // When genreId is empty, omit the genre segment to get overall rankings.
+  const url = genreId
+    ? `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/genre=${genreId}/apps.json`
+    : `${RSS_TOP_APPS_URL}/${country}/apps/${feedType}/${safeLimit}/apps.json`;
 
   try {
     const response = await fetchJson<RssFeedResponse>(url);

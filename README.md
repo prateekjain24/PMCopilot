@@ -94,13 +94,55 @@ cd ../..
 
 ### App Store Intel Server
 
-Extracts data from the App Store and Google Play Store -- ratings, reviews, version history, and sentiment. No special prerequisites.
+Extracts data from the App Store and Google Play Store -- search, app details, reviews, sentiment analysis, category rankings, version tracking, and competitive comparison across 10 tools.
+
+**How it works:**
+
+The server has two adapters. The App Store adapter uses three free, unauthenticated Apple APIs: the iTunes Search API for keyword search, the iTunes Lookup API for app-by-ID metadata, and the Apple RSS feed for top-app rankings and user reviews. No API keys or auth needed -- these are public endpoints.
+
+The Play Store adapter uses the `google-play-scraper` npm package, which scrapes Play Store web pages. This package is listed as an optional dependency. If not installed, all Play Store functions return a descriptive error telling you how to install it. App Store features work regardless.
+
+All responses are cached locally as JSON files (default TTL: 24 hours, configurable via `CACHE_TTL_HOURS` env var). Version history and rating history use separate persistent storage that never expires, so they accumulate data across calls.
+
+**Prerequisites:**
+
+- Node.js 18+ and Bun (required)
+- Network access to `itunes.apple.com` and `rss.applemarketingtools.com` (required for App Store)
+- `google-play-scraper` package (optional, for Play Store support)
+
+**Build:**
 
 ```bash
 cd mcp-servers/app-store-intel
 bun install && bun run build
 cd ../..
 ```
+
+To enable Play Store features:
+
+```bash
+cd mcp-servers/app-store-intel
+bun add google-play-scraper
+bun run build
+cd ../..
+```
+
+**What the 10 tools do:**
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+| Search | `search_app_store`, `search_play_store` | Keyword search returning normalized app metadata (name, developer, rating, category) |
+| Details | `get_app_details` | Full metadata for one app: description, version, size, ratings, screenshots, release notes |
+| Reviews | `get_app_reviews`, `get_review_sentiment` | Fetch reviews with pagination/sorting/star filtering; keyword-based sentiment analysis with theme extraction |
+| Rankings | `get_category_rankings` | Top free/paid/grossing apps by category (mapped to Apple genre IDs) |
+| Comparison | `compare_apps`, `get_similar_apps` | Side-by-side comparison of 2-10 apps; find competitor apps (Play Store native, App Store heuristic) |
+| Tracking | `get_version_history`, `track_rating_history` | Accumulate version and rating data over time for trend analysis |
+
+**Known limitations:**
+
+- Sentiment analysis uses keyword matching, not NLP. Negation ("not great") is not handled -- the word "great" counts as positive regardless of context. Good enough for directional signal at scale, but not for individual review accuracy.
+- Version history for both stores only captures the current version on each call. Neither Apple nor Google provide historical version APIs. The data gets richer over time as you call the tool periodically.
+- The `google-play-scraper` package is a web scraper, not an official API. Google can change their page structure and break it. If Play Store tools start returning errors after working previously, check for a newer version of the package.
 
 ### Simulator Bridge (iOS)
 

@@ -1,21 +1,16 @@
 import { z } from "zod";
 import * as appStore from "../adapters/app-store.js";
 import * as playStore from "../adapters/play-store.js";
-import { buildCacheKey, get, set } from "../cache.js";
-
-interface VersionEntry {
-  version: string;
-  release_date: string;
-  release_notes: string;
-}
+import { recordVersion, type VersionEntry } from "../helpers/version-store.js";
 
 export const getVersionHistoryTool = {
   name: "get_version_history",
   description:
     "Get version history for a specific app. Returns an array of version entries " +
     "sorted newest first, each with version number, release date, and release notes. " +
-    "Note: the App Store lookup API only returns the current version. " +
-    "Historical data accumulates as the tool is called over time.",
+    "Note: the App Store and Play Store APIs only return the current version. " +
+    "Historical data accumulates permanently as this tool is called over time -- " +
+    "the more often you call it, the richer the history becomes.",
   parameters: z.object({
     store: z
       .enum(["app_store", "play_store"])
@@ -26,10 +21,6 @@ export const getVersionHistoryTool = {
   }),
   execute: async (params: { store: "app_store" | "play_store"; app_id: string }) => {
     const { store, app_id } = params;
-
-    // We use a persistent cache key for accumulating version history
-    const historyKey = buildCacheKey("version_history_accum", { store, app_id });
-    const existingHistory = get<VersionEntry[]>(historyKey) ?? [];
 
     if (store === "app_store") {
       const app = await appStore.lookup(app_id);
@@ -43,32 +34,17 @@ export const getVersionHistoryTool = {
         release_notes: app.releaseNotes ?? "",
       };
 
-      // Add to history if this version is not already recorded
-      const alreadyRecorded = existingHistory.some(
-        (e) => e.version === currentEntry.version
-      );
-
-      if (!alreadyRecorded) {
-        existingHistory.unshift(currentEntry);
-      }
-
-      // Sort newest first by release date
-      existingHistory.sort((a, b) => {
-        const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
-        const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
-        return dateB - dateA;
-      });
-
-      set(historyKey, existingHistory);
+      // Record and get full accumulated history (never expires)
+      const versions = recordVersion(store, app_id, currentEntry);
 
       return JSON.stringify(
         {
           store,
           app_id,
           app_name: app.trackName,
-          version_count: existingHistory.length,
-          versions: existingHistory,
-          note: existingHistory.length <= 1
+          version_count: versions.length,
+          versions,
+          note: versions.length <= 1
             ? "Only the current version is available from the App Store API. History accumulates as this tool is called over time when the app updates."
             : undefined,
         },
@@ -90,30 +66,16 @@ export const getVersionHistoryTool = {
         release_notes: app.recentChanges ?? "",
       };
 
-      const alreadyRecorded = existingHistory.some(
-        (e) => e.version === currentEntry.version
-      );
-
-      if (!alreadyRecorded) {
-        existingHistory.unshift(currentEntry);
-      }
-
-      existingHistory.sort((a, b) => {
-        const dateA = a.release_date ? new Date(a.release_date).getTime() : 0;
-        const dateB = b.release_date ? new Date(b.release_date).getTime() : 0;
-        return dateB - dateA;
-      });
-
-      set(historyKey, existingHistory);
+      const versions = recordVersion(store, app_id, currentEntry);
 
       return JSON.stringify(
         {
           store,
           app_id,
           app_name: app.title,
-          version_count: existingHistory.length,
-          versions: existingHistory,
-          note: existingHistory.length <= 1
+          version_count: versions.length,
+          versions,
+          note: versions.length <= 1
             ? "Only the current version is available. History accumulates as this tool is called over time when the app updates."
             : undefined,
         },
